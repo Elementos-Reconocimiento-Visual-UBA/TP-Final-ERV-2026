@@ -1,0 +1,152 @@
+/* =====================================================================
+   banners.css — Estilos de los carteles animados de la grilla
+   ---------------------------------------------------------------------
+   Cada cartel es un <button class="tile b-TIPO">. TIPO es el valor de
+   "banner.tipo" en data/mails.json. El HTML de cada tipo está en
+   js/banners.js; acá solo van sus colores y animaciones.
+
+ */
+
+/* ---- Común a todos los carteles ---- */
+.tile {
+  position: relative; overflow: hidden; min-height: 196px;
+  display: flex; flex-direction: column; justify-content: center; gap: 8px;
+  padding: 16px 14px 14px; border: 0; text-align: center; color: #fff;
+  transition: transform .12s;
+}
+.tile:hover { transform: translateY(-3px) rotate(-.4deg); }
+.tile:active { transform: scale(.98); }
+.tile .num { position: absolute; left: 8px; top: 6px; z-index: 3; font-family: var(--pixel); font-size: 12px; opacity: .85; }
+.tile .new { position: absolute; right: 8px; top: 6px; z-index: 3; padding: 1px 6px; background: #e00000; color: #fff; font-family: var(--pixel); font-size: 11px; animation: blink 1.2s steps(2) infinite; }
+.tile.read .new { display: none; }
+.tile.read::after { content: "LEÍDO ✓"; position: absolute; right: 8px; top: 6px; z-index: 3; padding: 1px 6px; background: #1b7a1b; color: #fff; font-family: var(--pixel); font-size: 11px; }
+.h { position: relative; z-index: 2; font-family: var(--display); line-height: 1.05; }
+.s { position: relative; z-index: 2; font-family: var(--pixel); font-size: 12px; line-height: 1.35; }
+.band { position: relative; z-index: 2; margin: 4px -14px -14px; padding: 8px 10px; background: #111; }
+.s-abajo { position: absolute; left: 0; right: 0; bottom: 10px; text-align: center; }
+
+/* ---- generico: colores desde el JSON (variables --bg, --fg, --ac, --bd) ---- */
+.b-generico { background: var(--bg, #0f1f4d); color: var(--fg, #fff); border: 4px solid var(--bd, #3a6ee8); }
+.b-generico .h { font-size: 26px; text-shadow: 3px 3px 0 rgba(0,0,0,.45); }
+.b-generico .h.ac { color: var(--ac, #ffe14d); font-size: 22px; }
+.b-generico .band { color: var(--ac, #ffe14d); background: rgba(0,0,0,.55); }
+
+/* ---- hough ---- */
+.b-hough { background: var(--sun); color: #111; border: 6px dotted #111; animation: dots 1s steps(2) infinite; }
+@keyframes dots { 50% { border-color: #7a5c00; } }
+.b-hough .h { font-size: 28px; text-shadow: 3px 3px 0 #c99a00; }
+.b-hough .band { color: var(--sun); }
+.b-hough .band b { color: #fff; }
+
+/* ---- iris ---- */
+.b-iris { flex-direction: row; align-items: center; text-align: left; background: #0b0b0b; border: 4px solid #3cff8f; }
+.b-iris svg { flex: none; width: 44%; }
+.b-iris .h { font-size: 24px; }
+.b-iris .h em { font-style: normal; color: #3cff8f; }
+.b-iris .s { color: #bbb; }
+
+/* ---- selective ---- */
+.b-selective { background: #0f1f4d; border: 4px solid #3a6ee8; }
+.b-selective .bx { position: absolute; z-index: 1; border: 2px solid; opacity: 0; animation: pop 4s infinite; }
+@keyframes pop { 0%, 5% { opacity: 0; transform: scale(.6); } 12%, 85% { opacity: 1; transform: scale(1); } 100% { opacity: 0; } }
+.b-selective .h { font-size: 26px; text-shadow: 3px 3px 0 #000; }
+.b-selective .h.o { color: #ff9f1c; font-size: 22px; }
+.b-selective .band { background: #0a1430; }
+
+/* ---- spoofing ---- */
+.b-spoofing { flex-direction: row; align-items: center; gap: 12px; text-align: left; background: #2a1b4d; border: 4px solid #6d4bd1; }
+.b-spoofing .face { position: relative; overflow: hidden; flex: none; width: 38%; padding: 5px; background: #f5f5f5; }
+.b-spoofing .face svg { display: block; width: 100%; }
+.b-spoofing .scan { position: absolute; left: 0; right: 0; height: 3px; background: #3cff8f; animation: scan 2s linear infinite; }
+@keyframes scan { from { top: 0; } to { top: 100%; } }
+.b-spoofing .h { font-family: var(--pixel); font-weight: 700; font-size: 19px; color: #ff7ab8; }
+.b-spoofing .h.g { color: #3cff8f; }
+.b-spoofing .st { position: relative; height: 16px; margin-top: 8px; font-family: var(--pixel); font-size: 12px; }
+.b-spoofing .st span { position: absolute; left: 0; animation: alt 4s steps(1) infinite; }
+.b-spoofing .st span + span { animation-delay: -2s; color: #ff4d4d; }
+@keyframes alt { 0% { opacity: 1; } 50% { opacity: 0; } }
+
+/* ---- gan ---- */
+.b-gan { background: #ffd000; color: #111; border: 4px solid #111; }
+.b-gan .row { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.b-gan svg { flex: none; width: 74px; }
+.b-gan .h { font-size: 28px; text-align: left; }
+.b-gan .stamp { position: absolute; right: 10px; top: 26px; padding: 0 6px; border: 3px solid #d00000; color: #d00000; font-family: var(--pixel); font-weight: 700; transform: rotate(12deg); animation: blink 1.6s steps(2) infinite; }
+.b-gan .band { color: #ffd000; }
+
+/* ---- correlograma ---- */
+.b-correlograma { flex-direction: row; align-items: center; gap: 12px; text-align: left; background: #e8590c; border: 4px solid #ffb26b; }
+.b-correlograma .pal { flex: none; display: grid; grid-template-columns: repeat(8, 1fr); gap: 2px; width: 42%; aspect-ratio: 1; padding: 4px; background: #fff; animation: hue 5s linear infinite; }
+@keyframes hue { to { filter: hue-rotate(360deg); } }
+.b-correlograma .h { font-size: 20px; text-shadow: 2px 2px 0 #8a2c00; }
+.b-correlograma .s { margin-top: 6px; }
+
+/* ---- paris ---- */
+.b-paris { background: #f6eedb; color: #2b2b2b; border: 4px double #b8892b; outline: 1px solid #b8892b; outline-offset: -10px; }
+.b-paris .h { font: italic 700 25px Georgia, 'DejaVu Serif', serif; }
+.b-paris .m { font: 700 16px Georgia, serif; color: #8a1c1c; }
+.b-paris svg { position: absolute; right: 12px; top: 12px; width: 46px; animation: spin 10s linear infinite; }
+.b-paris .s { color: #6b5a2e; }
+
+/* ---- crossdomain ---- */
+.b-crossdomain { background: #244a2b; border: 4px solid #c9b26b; }
+.b-crossdomain .h { font-size: 22px; color: #f3e7c1; text-shadow: 2px 2px 0 #0d1f10; }
+.b-crossdomain .h.y { color: var(--sun); }
+.b-crossdomain .pics { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.b-crossdomain .pics svg { display: block; width: 76px; }
+.b-crossdomain .paint { border: 6px solid #c9a227; }
+.b-crossdomain .photo { border: 4px solid #fff; }
+.b-crossdomain .arr { width: 0; height: 0; border: 12px solid transparent; border-left: 20px solid var(--sun); animation: nudge 1s ease-in-out infinite alternate; }
+@keyframes nudge { to { transform: translateX(6px); } }
+.b-crossdomain .s { color: #f3e7c1; }
+
+/* ---- copymove ---- */
+.b-copymove { background: #7a0d0d; border: 4px solid #d4a017; }
+.b-copymove .top { display: flex; justify-content: space-between; align-items: center; }
+.b-copymove .top .h { font-family: var(--pixel); font-weight: 700; font-size: 18px; color: #ffd84d; }
+.b-copymove .siren { width: 20px; height: 26px; background: #ff3030; border-bottom: 6px solid #ddd; animation: siren .5s steps(2) infinite; }
+@keyframes siren { 50% { background: #5a1010; } }
+.b-copymove .keys { display: flex; gap: 8px; justify-content: center; }
+.b-copymove .key { flex: 1; padding: 10px 2px; background: #e0e0e0; color: #999; font-family: var(--display); font-size: 15px; box-shadow: 0 5px 0 #999; animation: keyc 3s infinite; }
+.b-copymove .key:nth-child(2) { animation-delay: .5s; }
+.b-copymove .key:nth-child(3) { animation-delay: 1s; animation-name: keys; }
+@keyframes keyc { 0%, 35% { background: #e0e0e0; color: #999; } 40%, 95% { background: #fff; color: #c62828; } 100% { background: #e0e0e0; color: #999; } }
+@keyframes keys { 0%, 35% { background: #e0e0e0; color: #999; } 40%, 95% { background: #fff; color: #0b6e2e; } 100% { background: #e0e0e0; color: #999; } }
+.b-copymove .ok { font-family: var(--pixel); font-weight: 700; }
+.b-copymove .s { color: #ffd84d; }
+
+/* ---- videogoogle ---- */
+.b-videogoogle { background: #fff; color: #111; border: 4px solid #cfd8e3; }
+.b-videogoogle .bar { min-height: 36px; padding: 9px 14px; border-radius: 20px; background: #2f6fed; color: #fff; text-align: left; font-family: var(--ui); font-size: 14px; white-space: nowrap; overflow: hidden; }
+.b-videogoogle .bar::after { content: "|"; animation: blink .8s steps(2) infinite; }
+.b-videogoogle .q { font-size: 12px; color: #777; text-align: left; }
+.b-videogoogle .h { font-size: 22px; }
+.b-videogoogle .h span { color: #2f6fed; }
+.b-videogoogle .s { color: #555; font-size: 11px; }
+
+/* ---- fourier ---- */
+.b-fourier { flex-direction: row; align-items: center; gap: 12px; text-align: left; background: #0d4f4c; border: 4px solid #2fd6c8; }
+.b-fourier .img { flex: none; width: 40%; overflow: hidden; border: 2px solid #fff; }
+.b-fourier .img svg { display: block; width: 100%; animation: sharpen 4s ease-out infinite; }
+@keyframes sharpen { 0% { filter: blur(7px); } 75%, 100% { filter: blur(0); } }
+.b-fourier .h { font-size: 24px; text-shadow: 2px 2px 0 #043; }
+.b-fourier .h.y { color: var(--sun); font-size: 19px; }
+.b-fourier .xy { font-family: var(--mono); font-size: 22px; color: #bff7f2; }
+.b-fourier .ep { font-family: var(--pixel); font-size: 12px; color: #2fd6c8; }
+
+/* ---- siren ---- */
+.b-siren { background: #14142b; border: 4px solid #ff5ec4; }
+.b-siren .wave { position: absolute; inset: 0; z-index: 1; opacity: .9; }
+.b-siren .wave svg { position: absolute; top: 50%; left: 0; width: 200%; height: 80px; transform: translateY(-50%); animation: wv 3s linear infinite; }
+@keyframes wv { to { transform: translate(-50%, -50%); } }
+.b-siren .sin { position: relative; z-index: 2; font-family: var(--mono); font-size: 58px; line-height: .8; text-shadow: 3px 3px 0 #000; }
+.b-siren .h { font-size: 19px; text-shadow: 2px 2px 0 #000; }
+.b-siren .h.c { color: #5ef0ff; font-size: 21px; }
+.b-siren .s { color: #ff9ee0; }
+
+/* ---- gatys ---- */
+.b-gatys { background: #1a3a8a; border: 4px solid #ffcc00; }
+.b-gatys .swirl { position: absolute; inset: -60%; z-index: 0; opacity: .95; background: repeating-conic-gradient(from 0deg at 30% 40%, #102a6b 0 12deg, #3a78c8 12deg 24deg, #f2c94c 24deg 30deg, #2a4fa0 30deg 42deg); animation: spin 14s linear infinite; }
+.b-gatys .h { font-size: 28px; text-shadow: 3px 3px 0 #0a1440; }
+.b-gatys .h.y { color: var(--sun); font-size: 24px; }
+.b-gatys .band { background: #0a1440; color: var(--sun); }

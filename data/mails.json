@@ -1,0 +1,728 @@
+{
+  "_ayuda": {
+    "que_es": "mails.json = la lista de mails (uno por paper). El orden de la lista es el orden de la grilla. Las claves que empiezan con '_' son comentarios: el sitio las ignora.",
+    "como_agregar": "Copiá el objeto '_plantilla' de abajo, pegalo al final de la lista 'mails', cambiale el 'id' y completá los campos.",
+    "campos": {
+      "id": "Identificador único, en minúsculas y con guiones (ej. 'copy-move'). Se usa en el link directo: index.html#copy-move",
+      "visible": "true = aparece en la grilla; false = oculto (útil para preparar mails sin mostrarlos).",
+      "banner": "Cómo se ve el cartel. tipo = uno de los banners animados de js/banners.js (hough, iris, selective, spoofing, gan, correlograma, paris, crossdomain, copymove, videogoogle, fourier, siren, gatys) o 'generico'. El genérico usa linea1, linea2, pie y los colores fondo, texto, acento y borde.",
+      "cliente": "Quién manda el mail: nombre, email, alias (lo que muestra el chat) y firma.",
+      "fecha / asunto": "Texto libre.",
+      "cuerpo": "Lista de párrafos. Acepta <b>, <i>, <a href='...'>.",
+      "pedidos": "Lista de lo que el cliente necesita. Se muestra numerada.",
+      "paper": "titulo, autores, publicacion y url. Si url está vacío, el título linkea a una búsqueda en Google Scholar.",
+      "recursos": "Lista opcional de cosas aparte del paper. tipo = dataset | codigo | paper | video | adjunto | link. url puede ser externa (https://...) o un archivo del repo (assets/recursos/...). Si no hay url, se muestra solo la nota.",
+      "ficha": "Ficha técnica: tema, dificultad, nucleo, librerias, datos, extra.",
+      "chat": "(opcional) Mensaje fijo para el aviso de chat de este mail. Si no está, sale uno al azar de config.json > messenger > mensajes."
+    }
+  },
+  "_plantilla": {
+    "id": "mi-paper-nuevo",
+    "visible": true,
+    "banner": {
+      "tipo": "generico",
+      "linea1": "TÍTULO GRANDE",
+      "linea2": "SEGUNDA LÍNEA",
+      "pie": "PAPER · AUTOR AÑO",
+      "fondo": "#0f1f4d",
+      "texto": "#ffffff",
+      "acento": "#ffe14d",
+      "borde": "#3a6ee8"
+    },
+    "cliente": {
+      "nombre": "Nombre del cliente",
+      "email": "alguien@empresa.erv",
+      "alias": "Nombre corto para el chat",
+      "firma": "Nombre · Cargo · Empresa · \"Slogan\""
+    },
+    "chat": "(opcional) ¿¿¿lo leyeron??? ¡¡ZUMBIDO!!",
+    "fecha": "Lunes, 15 de noviembre de 2004 10:00",
+    "asunto": "Asunto del mail",
+    "cuerpo": [
+      "Primer párrafo del problema (acepta <b>negrita</b>).",
+      "Segundo párrafo."
+    ],
+    "pedidos": [
+      "Primera cosa que el cliente necesita.",
+      "Segunda.",
+      "Tercera."
+    ],
+    "paper": {
+      "titulo": "Título exacto del paper",
+      "autores": "A. Autor y B. Autor",
+      "publicacion": "Conferencia o revista, año",
+      "url": ""
+    },
+    "recursos": [
+      {
+        "tipo": "dataset",
+        "titulo": "Nombre del dataset",
+        "url": "https://...",
+        "nota": "Para qué sirve o cómo pedirlo."
+      },
+      {
+        "tipo": "adjunto",
+        "titulo": "foto.png",
+        "url": "assets/recursos/mi-paper-nuevo/foto.png",
+        "nota": "Archivo subido al repo."
+      }
+    ],
+    "ficha": {
+      "tema": "Tema de la materia",
+      "dificultad": "BAJA | MEDIA | ALTA",
+      "nucleo": "Qué tienen que implementar ellos.",
+      "librerias": "Qué pueden usar de librerías.",
+      "datos": "Qué datos usar.",
+      "extra": "Ejercicio extra opcional."
+    }
+  },
+  "mails": [
+    {
+      "id": "deep-hough",
+      "visible": true,
+      "banner": {
+        "tipo": "hough"
+      },
+      "cliente": {
+        "nombre": "Marta, Gerencia Comercial",
+        "email": "marta@ladrillofeliz.erv",
+        "alias": "Marta (Inmobiliaria)",
+        "firma": "Marta · Gerenta comercial · Inmobiliaria Ladrillo Feliz · \"Tu próximo hogar, derechito\""
+      },
+      "fecha": "Lunes, 15 de noviembre de 2004 09:12",
+      "asunto": "Fotos torcidas = deptos que no se venden :-(",
+      "cuerpo": [
+        "Nuestros vendedores sacan las fotos de los departamentos con el celular, apurados y medio de costado. Resultado: paredes inclinadas, ventanas chuecas y avisos que nadie abre.",
+        "No queremos TODAS las líneas rectas (hay mil: azulejos, parquet, persianas). Queremos las <b>líneas importantes</b>: la unión entre pared y techo, los marcos de las puertas, el horizonte del balcón."
+      ],
+      "pedidos": [
+        "Detectar las líneas principales de cada foto.",
+        "Comparar con la transformada de Hough clásica: ¿cuál elige mejor las líneas que importan?",
+        "Decirnos cuántos grados está torcida cada foto."
+      ],
+      "paper": {
+        "titulo": "Deep Hough Transform for Semantic Line Detection",
+        "autores": "K. Zhao, Q. Han, C.-B. Zhang, J. Xu y M.-M. Cheng",
+        "publicacion": "ECCV 2020 (versión extendida en IEEE TPAMI, 2021)",
+        "url": "https://arxiv.org/abs/2003.04676"
+      },
+      "recursos": [
+        {
+          "tipo": "codigo",
+          "titulo": "Código oficial (PyTorch)",
+          "url": "https://github.com/Hanqer/deep-hough-transform",
+          "nota": "Incluye cómo bajar los datasets SEL y NKL y modelos preentrenados para compararse."
+        },
+        {
+          "tipo": "link",
+          "titulo": "Página del proyecto",
+          "url": "https://mmcheng.net/dhtline/",
+          "nota": "Demo online y resultados."
+        }
+      ],
+      "ficha": {
+        "tema": "Transformada de Hough",
+        "dificultad": "ALTA",
+        "nucleo": "Hough clásico desde cero (acumulador ρ-θ sobre bordes de Canny) y la operación Deep Hough: acumular features de una red preentrenada a lo largo de cada línea. Entrenar solo la cabeza final con un subconjunto chico del dataset y comparar con el Hough clásico.",
+        "librerias": "Canny, la red preentrenada (ResNet de torchvision) y el entrenamiento en PyTorch.",
+        "datos": "Dataset SEL de líneas semánticas (el del paper) y fotos propias de interiores y paisajes.",
+        "extra": "Enderezado automático: rotar la foto según las líneas detectadas y medir el error en grados contra fotos con inclinación conocida."
+      }
+    },
+    {
+      "id": "iris-wildes",
+      "visible": true,
+      "banner": {
+        "tipo": "iris"
+      },
+      "cliente": {
+        "nombre": "Dr. Ernesto Ojeda",
+        "email": "ojeda@bioacceso.erv",
+        "alias": "Dr. Ojeda (BioAcceso)",
+        "firma": "Dr. E. Ojeda · Jefe de Seguridad · Laboratorio BioAcceso"
+      },
+      "fecha": "Martes, 16 de noviembre de 2004 11:40",
+      "asunto": "¿Podemos abrir la puerta con el ojo? O_o",
+      "cuerpo": [
+        "Tenemos una sala con muestras delicadas, y las tarjetas magnéticas se pierden, se prestan y se clonan. El directorio quiere control de acceso por <b>iris</b>.",
+        "Antes de gastar en un equipo comercial, queremos saber si se puede hacer con una cámara común y un algoritmo publicado."
+      ],
+      "pedidos": [
+        "Encontrar la pupila y el borde del iris en una foto del ojo.",
+        "Comparar dos iris y decir si son de la misma persona.",
+        "Decirnos si con la cámara de un celular alcanza o no."
+      ],
+      "paper": {
+        "titulo": "Iris Recognition: An Emerging Biometric Technology",
+        "autores": "R. P. Wildes",
+        "publicacion": "Proceedings of the IEEE, 1997",
+        "url": ""
+      },
+      "recursos": [
+        {
+          "tipo": "dataset",
+          "titulo": "CASIA-Iris o UBIRIS",
+          "url": "",
+          "nota": "Datasets públicos de iris; los dos piden registrarse en el sitio de sus autores."
+        },
+        {
+          "tipo": "codigo",
+          "titulo": "Tutorial de Hough de círculos en OpenCV",
+          "url": "https://docs.opencv.org/4.x/da/d53/tutorial_py_houghcircles.html",
+          "nota": "Solo para compararse: el núcleo lo implementan ustedes."
+        }
+      ],
+      "ficha": {
+        "tema": "Hough de círculos",
+        "dificultad": "MEDIA",
+        "nucleo": "Hough de círculos implementado por el grupo para encontrar pupila e iris. Desenrollar el iris a coordenadas polares y comparar dos iris con una medida simple (por ejemplo, correlación normalizada).",
+        "librerias": "Detección de bordes, suavizado y lectura de imágenes. <code>cv2.HoughCircles</code> solo para compararse, no para el núcleo.",
+        "datos": "Un dataset público de iris y fotos macro propias con el celular.",
+        "extra": "Curva ROC de verificación (misma persona contra distinta persona) con al menos 5 personas."
+      }
+    },
+    {
+      "id": "selective-search",
+      "visible": true,
+      "banner": {
+        "tipo": "selective"
+      },
+      "cliente": {
+        "nombre": "Rubén, Jefe de Góndolas",
+        "email": "ruben@elchanguito.erv",
+        "alias": "Rubén (Supermercado)",
+        "firma": "Rubén · Jefe de Góndolas · Supermercados El Changuito · \"Llená el changuito\""
+      },
+      "fecha": "Martes, 16 de noviembre de 2004 07:58",
+      "asunto": "¿Dónde están los productos? (sin entrenar nada)",
+      "cuerpo": [
+        "Todos los días los repositores sacan fotos de las góndolas para controlar que no falte nada. Son miles de fotos y nadie las mira.",
+        "Un proveedor nos ofreció un detector, pero hay que entrenarlo para cada marca y tenemos 8.000 productos. Queremos algo que diga <b>\"acá hay un objeto\"</b> sin saber cuál es."
+      ],
+      "pedidos": [
+        "Proponer cajas donde probablemente haya un producto.",
+        "Medir cuántos productos reales quedan cubiertos por esas cajas.",
+        "Mostrar qué forma de agrupar regiones funciona mejor en góndolas."
+      ],
+      "paper": {
+        "titulo": "Selective Search for Object Recognition",
+        "autores": "J. R. R. Uijlings, K. E. A. van de Sande, T. Gevers y A. W. M. Smeulders",
+        "publicacion": "International Journal of Computer Vision, 2013",
+        "url": ""
+      },
+      "recursos": [
+        {
+          "tipo": "dataset",
+          "titulo": "PASCAL VOC",
+          "url": "http://host.robots.ox.ac.uk/pascal/VOC/",
+          "nota": "Usen un subconjunto chico: con 100 imágenes alcanza para medir recall."
+        },
+        {
+          "tipo": "codigo",
+          "titulo": "Segmentación de Felzenszwalb en scikit-image",
+          "url": "https://scikit-image.org/docs/stable/api/skimage.segmentation.html",
+          "nota": "Para la sobresegmentación inicial."
+        }
+      ],
+      "ficha": {
+        "tema": "Segmentación por grafos (Felzenszwalb)",
+        "dificultad": "MEDIA",
+        "nucleo": "El agrupamiento jerárquico con las cuatro similitudes del paper (color, textura, tamaño y relleno) y la generación de cajas. Medir el recall de las propuestas contra cajas reales.",
+        "librerias": "La segmentación inicial (<code>skimage.segmentation.felzenszwalb</code>).",
+        "datos": "Un subconjunto chico de PASCAL VOC y fotos propias.",
+        "extra": "Implementar ustedes la segmentación de Felzenszwalb y compararla con la de skimage."
+      }
+    },
+    {
+      "id": "face-spoofing",
+      "visible": true,
+      "banner": {
+        "tipo": "spoofing"
+      },
+      "cliente": {
+        "nombre": "Lucía, Prevención de Fraude",
+        "email": "fraude@billeterapixel.erv",
+        "alias": "Lucía (BilleteraPíxel)",
+        "firma": "Lucía · Prevención de Fraude · BilleteraPíxel · \"Tu plata, en píxeles\""
+      },
+      "fecha": "Miércoles, 17 de noviembre de 2004 23:05",
+      "asunto": "Nos abren cuentas con FOTOS DE FOTOS >:(",
+      "cuerpo": [
+        "Para abrir una cuenta pedimos una selfie. Esta semana detectamos 40 cuentas abiertas por gente que puso frente a la cámara una <b>foto impresa de otra persona</b>.",
+        "Necesitamos frenar esto antes de que salga en los diarios."
+      ],
+      "pedidos": [
+        "Distinguir una cara real de una foto impresa o mostrada en una pantalla.",
+        "Decirnos cuántas veces se equivoca, para un lado y para el otro.",
+        "Probar el peor caso: una foto en la pantalla de un celular nuevo."
+      ],
+      "paper": {
+        "titulo": "Face Spoofing Detection from Single Images Using Micro-Texture Analysis",
+        "autores": "J. Määttä, A. Hadid y M. Pietikäinen",
+        "publicacion": "International Joint Conference on Biometrics (IJCB), 2011",
+        "url": ""
+      },
+      "recursos": [
+        {
+          "tipo": "dataset",
+          "titulo": "NUAA Photograph Imposter Database",
+          "url": "",
+          "nota": "Es el dataset del paper. Se descarga desde la página de sus autores, solo para investigación y sin redistribuirlo; si no lo consiguen, armen el set propio."
+        },
+        {
+          "tipo": "codigo",
+          "titulo": "Ejemplo de LBP en scikit-image",
+          "url": "https://scikit-image.org/docs/stable/auto_examples/features_detection/plot_local_binary_pattern.html",
+          "nota": "Sirve para validar su propia implementación."
+        }
+      ],
+      "ficha": {
+        "tema": "LBP",
+        "dificultad": "BAJA",
+        "nucleo": "LBP uniforme multiescala implementado por el grupo, histogramas por bloques concatenados y un clasificador SVM.",
+        "librerias": "Detección de caras y el SVM de scikit-learn.",
+        "datos": "NUAA y un set propio de selfies reales contra fotos de fotos (impresas y en pantalla).",
+        "extra": "Demo con webcam en tiempo real, o probar el ataque con la pantalla de un celular de alta resolución."
+      }
+    },
+    {
+      "id": "gan-coocurrencia",
+      "visible": true,
+      "banner": {
+        "tipo": "gan"
+      },
+      "cliente": {
+        "nombre": "Redacción",
+        "email": "redaccion@lalupa.erv",
+        "alias": "La Lupa (verificación)",
+        "firma": "Equipo de La Lupa · \"Antes de compartir, chequeá\""
+      },
+      "fecha": "Jueves, 18 de noviembre de 2004 14:22",
+      "asunto": "¿Esta foto la hizo una IA? Nos llegan 200 por día",
+      "cuerpo": [
+        "Nos llegan por WhatsApp fotos virales que supuestamente son reales. Cada vez más son caras y escenas <b>generadas por inteligencia artificial</b>.",
+        "Encontramos un paper de 2019 (sí, del futuro, no pregunten) que dice detectarlas, pero no sabemos si sigue sirviendo con los generadores de hoy."
+      ],
+      "pedidos": [
+        "Detectar si una imagen es real o generada.",
+        "Probar con imágenes de generadores actuales, no solo con las del paper.",
+        "Ver qué pasa cuando la imagen se comprime al reenviarla por WhatsApp."
+      ],
+      "paper": {
+        "titulo": "Detecting GAN Generated Fake Images Using Co-occurrence Matrices",
+        "autores": "L. Nataraj, T. M. Mohammed, B. S. Manjunath, S. Chandrasekaran, A. Flenner, J. H. Bappy y A. K. Roy-Chowdhury",
+        "publicacion": "Electronic Imaging, 2019",
+        "url": ""
+      },
+      "recursos": [
+        {
+          "tipo": "dataset",
+          "titulo": "COCO (fotos reales)",
+          "url": "https://cocodataset.org",
+          "nota": "Un par de miles de fotos reales alcanzan."
+        },
+        {
+          "tipo": "dataset",
+          "titulo": "140k Real and Fake Faces (Kaggle)",
+          "url": "https://www.kaggle.com/datasets/xhlulu/140k-real-and-fake-faces",
+          "nota": "Caras reales y caras generadas con StyleGAN."
+        }
+      ],
+      "ficha": {
+        "tema": "Matriz de co-ocurrencia",
+        "dificultad": "MEDIA",
+        "nucleo": "Matrices de co-ocurrencia por canal RGB implementadas por el grupo y un clasificador. El paper usa una CNN chica; también vale una versión liviana con matrices reducidas y regresión logística o SVM.",
+        "librerias": "El clasificador (scikit-learn o PyTorch).",
+        "datos": "Fotos reales contra imágenes generadas (datasets públicos y generadas por ustedes con generadores actuales).",
+        "extra": "Medir cuánto empeora la detección con compresión JPEG, como cuando se reenvía por WhatsApp."
+      }
+    },
+    {
+      "id": "correlogramas",
+      "visible": true,
+      "banner": {
+        "tipo": "correlograma"
+      },
+      "cliente": {
+        "nombre": "Flor, Fundadora",
+        "email": "flor@placardcircular.erv",
+        "alias": "Flor (Placard Circular)",
+        "firma": "Flor · Fundadora · Placard Circular · \"Lo que no usás, alguien lo busca\""
+      },
+      "fecha": "Viernes, 19 de noviembre de 2004 10:03",
+      "asunto": "Quiero buscar ropa con una foto =)",
+      "cuerpo": [
+        "Vendemos ropa usada online: 15.000 prendas, cada una con su foto. Los clientes nos escriben \"¿tienen algo parecido a esto?\" y nos mandan una foto.",
+        "Buscar a mano es imposible. Queremos un <b>buscador</b>: subís una foto y te aparecen las prendas más parecidas."
+      ],
+      "pedidos": [
+        "Un buscador de imágenes parecidas por color.",
+        "Comparar el correlograma contra un histograma de color común: ¿cuál acierta más?",
+        "Decirnos cuánto tarda en buscar entre miles de fotos."
+      ],
+      "paper": {
+        "titulo": "Image Indexing Using Color Correlograms",
+        "autores": "J. Huang, S. R. Kumar, M. Mitra, W.-J. Zhu y R. Zabih",
+        "publicacion": "IEEE CVPR, 1997",
+        "url": ""
+      },
+      "recursos": [
+        {
+          "tipo": "dataset",
+          "titulo": "INRIA Holidays",
+          "url": "https://lear.inrialpes.fr/people/jegou/data.php",
+          "nota": "Fotos de vacaciones agrupadas por escena: sirve para medir si el buscador acierta."
+        }
+      ],
+      "ficha": {
+        "tema": "Co-ocurrencia (de color)",
+        "dificultad": "BAJA",
+        "nucleo": "Cuantizar a 64 colores, calcular el autocorrelograma para distancias 1, 3, 5 y 7, y buscar con la distancia del paper. Comparar contra un histograma de color midiendo precisión en los primeros resultados.",
+        "librerias": "Lectura de imágenes y conversión de color.",
+        "datos": "INRIA Holidays y una colección propia de al menos 200 fotos.",
+        "extra": "Una interfaz simple (subir foto y ver los 5 más parecidos) o indexar 10.000 imágenes y medir el tiempo de búsqueda."
+      }
+    },
+    {
+      "id": "paris",
+      "visible": true,
+      "banner": {
+        "tipo": "paris"
+      },
+      "cliente": {
+        "nombre": "Equipo creativo",
+        "email": "hola@pasaporteporteno.erv",
+        "alias": "Pasaporte Porteño",
+        "firma": "Equipo creativo · Pasaporte Porteño, agencia de turismo"
+      },
+      "fecha": "Viernes, 19 de noviembre de 2004 16:47",
+      "asunto": "¿Qué hace que un barrio se reconozca?",
+      "cuerpo": [
+        "Estamos armando una campaña para turistas: \"reconocé cada barrio por sus detalles\". Un creativo dijo que San Telmo se reconoce por los balcones y Palermo por los árboles… pero lo inventó.",
+        "Queremos que lo diga una computadora, <b>mirando miles de fotos de la calle</b>."
+      ],
+      "pedidos": [
+        "Encontrar automáticamente detalles visuales típicos de un barrio (o ciudad) que no aparecen en otro.",
+        "Mostrar los 10 detalles más característicos de cada uno.",
+        "Probar si con esos detalles se adivina el barrio de una foto nueva."
+      ],
+      "paper": {
+        "titulo": "What Makes Paris Look like Paris?",
+        "autores": "C. Doersch, S. Singh, A. Gupta, J. Sivic y A. A. Efros",
+        "publicacion": "ACM SIGGRAPH (ACM Transactions on Graphics), 2012",
+        "url": ""
+      },
+      "recursos": [
+        {
+          "tipo": "link",
+          "titulo": "Página del proyecto",
+          "url": "http://graphics.cs.cmu.edu/projects/whatMakesParis/",
+          "nota": "Resultados y material de los autores."
+        },
+        {
+          "tipo": "dataset",
+          "titulo": "Mapillary (fotos de calle abiertas)",
+          "url": "https://www.mapillary.com",
+          "nota": "Para juntar fotos a nivel de calle de dos barrios o ciudades."
+        }
+      ],
+      "ficha": {
+        "tema": "HOG",
+        "dificultad": "ALTA",
+        "nucleo": "Fragmentos al azar con descriptor HOG más color y el agrupamiento discriminativo iterativo con SVM lineales, separando los datos en dos mitades como el paper. A escala chica: 2 barrios o 2 ciudades con unas 300 fotos cada uno.",
+        "librerias": "HOG (<code>skimage.feature.hog</code>) y los SVM de scikit-learn.",
+        "datos": "Fotos a nivel de calle de Mapillary o sacadas por el grupo.",
+        "extra": "Usar los detectores aprendidos para adivinar el barrio de una foto nueva y medir el acierto."
+      }
+    },
+    {
+      "id": "cross-domain",
+      "visible": true,
+      "banner": {
+        "tipo": "crossdomain"
+      },
+      "cliente": {
+        "nombre": "Archivo",
+        "email": "archivo@museodelgrabado.erv",
+        "alias": "Museo del Grabado",
+        "firma": "Archivo · Museo del Grabado · \"Lo que se dibujó, existió\""
+      },
+      "fecha": "Sábado, 20 de noviembre de 2004 12:15",
+      "asunto": "Tenemos cuadros… ¿pero dónde quedan esos lugares?",
+      "cuerpo": [
+        "Recibimos una donación de 300 pinturas y grabados de paisajes y calles. Ninguno dice qué lugar muestra.",
+        "Queremos encontrar, para cada obra, <b>la foto actual del mismo lugar</b>, para una muestra de \"antes y ahora\". Los colores y las texturas no se parecen en nada a una foto."
+      ],
+      "pedidos": [
+        "Dada una pintura o un dibujo, encontrar la foto del mismo lugar en una base de fotos.",
+        "Comparar contra buscar solo por HOG, sin entrenar nada.",
+        "Decirnos con qué tipo de obras falla."
+      ],
+      "paper": {
+        "titulo": "Data-driven Visual Similarity for Cross-domain Image Matching",
+        "autores": "A. Shrivastava, T. Malisiewicz, A. Gupta y A. A. Efros",
+        "publicacion": "ACM SIGGRAPH Asia (ACM Transactions on Graphics), 2011",
+        "url": ""
+      },
+      "recursos": [
+        {
+          "tipo": "link",
+          "titulo": "Página del proyecto",
+          "url": "http://graphics.cs.cmu.edu/projects/crossDomainMatching/",
+          "nota": "Ejemplos de consultas y resultados."
+        }
+      ],
+      "ficha": {
+        "tema": "HOG",
+        "dificultad": "ALTA",
+        "nucleo": "HOG de la imagen completa, un SVM lineal por consulta entrenado contra muchos negativos (con minería de negativos difíciles) y búsqueda en una base de fotos. Comparar con el vecino más cercano por HOG puro.",
+        "librerias": "HOG y el SVM.",
+        "datos": "Una base de fotos de lugares conocidos y consultas de otro dominio: pinturas de dominio público o dibujos del grupo.",
+        "extra": "Probar con dibujos hechos por ustedes y medir en qué posición aparece la foto correcta."
+      }
+    },
+    {
+      "id": "copy-move",
+      "visible": true,
+      "banner": {
+        "tipo": "copymove"
+      },
+      "cliente": {
+        "nombre": "J. Píxel ~*Jefe de Fotografía*~",
+        "email": "fotografia@elpixel.erv",
+        "alias": "J. Píxel (Diario)",
+        "firma": "J. Píxel · Jefe de Fotografía · Diario El Píxel · \"Todo lo que se ve, se verifica\""
+      },
+      "chat": "¿¿¿lo vieron??? ¡¡ZUMBIDO!! cerramos la tapa en 14 horas",
+      "fecha": "Martes, 9 de noviembre de 2004 15:39",
+      "asunto": "¡¡URGENTE!! Foto de tapa ¿trucada? :-O",
+      "cuerpo": [
+        "Mañana a las 06:00 cerramos la tapa con la foto adjunta de una marcha. Nos la mandó un colaborador externo… y algo no nos cierra :-S",
+        "Hay partes de la multitud que parecen <b>REPETIDAS</b>, como si alguien hubiera \"agrandado\" la marcha con copiar y pegar. Si publicamos una foto trucada, perdemos la credibilidad del diario."
+      ],
+      "pedidos": [
+        "Si la imagen tiene regiones copiadas y pegadas (copy-move).",
+        "Dónde están exactamente: origen y destino, bien marcados.",
+        "Qué le hicieron a la copia: ¿la movieron, rotaron, escalaron?"
+      ],
+      "paper": {
+        "titulo": "A SIFT-Based Forensic Method for Copy-Move Attack Detection and Transformation Recovery",
+        "autores": "I. Amerini, L. Ballan, R. Caldelli, A. Del Bimbo y G. Serra",
+        "publicacion": "IEEE Transactions on Information Forensics and Security, 2011",
+        "url": ""
+      },
+      "recursos": [
+        {
+          "tipo": "adjunto",
+          "titulo": "PROTESTA.PNG (la foto sospechosa)",
+          "url": "assets/adjuntos/protesta.png",
+          "nota": "Primer caso de prueba: tiene una región clonada."
+        },
+        {
+          "tipo": "dataset",
+          "titulo": "MICC-F220 (dataset de los autores)",
+          "url": "https://lci.micc.unifi.it/labd/2015/01/copy-move-forgery-detection-and-localization/",
+          "nota": "220 imágenes: 110 originales y 110 trucadas."
+        },
+        {
+          "tipo": "codigo",
+          "titulo": "Tutorial de SIFT en OpenCV",
+          "url": "https://docs.opencv.org/4.x/da/df5/tutorial_py_sift_intro.html",
+          "nota": "Para la detección de puntos; el matching y el clustering los hacen ustedes."
+        }
+      ],
+      "ficha": {
+        "tema": "SIFT",
+        "dificultad": "MEDIA",
+        "nucleo": "Matching de SIFT dentro de la misma imagen con el criterio g2NN, agrupamiento jerárquico de los puntos y estimación de la transformación afín con RANSAC implementado por el grupo.",
+        "librerias": "Detección de SIFT (<code>cv2.SIFT_create</code>) y el agrupamiento jerárquico de SciPy.",
+        "datos": "MICC-F220 y fotos propias trucadas por el grupo.",
+        "extra": "Medir hasta qué rotación, escala o compresión JPEG de la copia el método sigue funcionando."
+      }
+    },
+    {
+      "id": "video-google",
+      "visible": true,
+      "banner": {
+        "tipo": "videogoogle"
+      },
+      "cliente": {
+        "nombre": "Archivo Histórico",
+        "email": "archivo@canal99.erv",
+        "alias": "Canal 99 (Archivo)",
+        "firma": "Archivo Histórico · Canal 99 · \"Siempre en tu pantalla\""
+      },
+      "fecha": "Domingo, 21 de noviembre de 2004 20:30",
+      "asunto": "500 horas de video y un reloj perdido",
+      "cuerpo": [
+        "Estamos digitalizando 500 horas de programas viejos. Producción nos pide todas las tomas donde aparece un objeto: un reloj de pared que estaba en un estudio.",
+        "Mirar 500 horas a mano no es opción. Queremos algo como un <b>buscador</b>: elegís el objeto en un cuadro y te devuelve todas las tomas donde aparece."
+      ],
+      "pedidos": [
+        "Buscar un objeto en un video a partir de un recorte.",
+        "Ordenar los resultados del más parecido al menos parecido.",
+        "Decirnos cuántos aciertos hay en los primeros 10 resultados."
+      ],
+      "paper": {
+        "titulo": "Video Google: A Text Retrieval Approach to Object Matching in Videos",
+        "autores": "J. Sivic y A. Zisserman",
+        "publicacion": "IEEE ICCV, 2003",
+        "url": ""
+      },
+      "recursos": [
+        {
+          "tipo": "dataset",
+          "titulo": "Oxford Buildings",
+          "url": "https://www.robots.ox.ac.uk/~vgg/data/oxbuildings/",
+          "nota": "Con consultas y respuestas correctas para medir mAP."
+        }
+      ],
+      "ficha": {
+        "tema": "SIFT",
+        "dificultad": "MEDIA",
+        "nucleo": "Vocabulario visual con k-means sobre descriptores SIFT, índice invertido y ranking tf-idf implementados por el grupo, más un reordenamiento simple por consistencia espacial.",
+        "librerias": "Detección de SIFT y k-means (<code>MiniBatchKMeans</code> de scikit-learn).",
+        "datos": "Oxford Buildings y un video propio o de dominio público.",
+        "extra": "Comparar resultados con vocabularios de distintos tamaños (por ejemplo 1.000, 10.000 y 50.000 palabras)."
+      }
+    },
+    {
+      "id": "fourier-features",
+      "visible": true,
+      "banner": {
+        "tipo": "fourier"
+      },
+      "cliente": {
+        "nombre": "Santi, CEO",
+        "email": "santi@redzip.erv",
+        "alias": "Santi (RedZip)",
+        "firma": "Santi · CEO y fundador · RedZip · \"Comprimimos el futuro\""
+      },
+      "fecha": "Lunes, 22 de noviembre de 2004 03:14",
+      "asunto": "¿Una red neuronal pesa menos que un JPEG? $$$",
+      "cuerpo": [
+        "Tenemos una idea millonaria: en vez de guardar la foto, guardamos una <b>red neuronal que sabe dibujarla</b>. Le pasás (x, y) y te devuelve el color.",
+        "Probamos con una red simple y las fotos salen borrosas. Un inversor nos pasó este paper y nos dijo \"léanlo\"."
+      ],
+      "pedidos": [
+        "Hacer que la red reproduzca la foto con detalle.",
+        "Mostrar cómo cambia el resultado según la codificación de las coordenadas.",
+        "Comparar cuánto pesa la red contra un JPEG de la misma calidad (PSNR)."
+      ],
+      "paper": {
+        "titulo": "Fourier Features Let Networks Learn High Frequency Functions in Low Dimensional Domains",
+        "autores": "M. Tancik, P. P. Srinivasan, B. Mildenhall, S. Fridovich-Keil, N. Raghavan, U. Singhal, R. Ramamoorthi, J. T. Barron y R. Ng",
+        "publicacion": "NeurIPS 2020",
+        "url": ""
+      },
+      "recursos": [
+        {
+          "tipo": "codigo",
+          "titulo": "Código de los autores",
+          "url": "https://github.com/tancik/fourier-feature-networks",
+          "nota": "Notebooks de referencia (en JAX). La réplica la hacen ustedes en PyTorch o NumPy."
+        }
+      ],
+      "ficha": {
+        "tema": "MLP",
+        "dificultad": "BAJA",
+        "nucleo": "Entrenar un MLP que reconstruya una imagen sin mapeo, con mapeo básico y con features de Fourier gaussianas de distintos σ. Reproducir la figura \"borroso contra nítido\" y medir PSNR.",
+        "librerias": "PyTorch.",
+        "datos": "Fotos propias.",
+        "extra": "Implementar el MLP y el backprop a mano en NumPy, sin PyTorch (conecta con la clase de Perceptrón y MLP)."
+      }
+    },
+    {
+      "id": "siren",
+      "visible": true,
+      "banner": {
+        "tipo": "siren"
+      },
+      "cliente": {
+        "nombre": "Equipo de Producto",
+        "email": "producto@pegafacil.erv",
+        "alias": "PegaFácil",
+        "firma": "Equipo de Producto · PegaFácil, app de edición"
+      },
+      "fecha": "Martes, 23 de noviembre de 2004 18:09",
+      "asunto": "Pegar sin que se note el borde",
+      "cuerpo": [
+        "Nuestra app deja pegar una persona o un objeto en otra foto. El problema: siempre se nota el borde y los colores no combinan.",
+        "Leímos que una red con <b>activaciones seno</b> puede representar una imagen a partir de sus gradientes, y que con eso se puede pegar \"sin costura\"."
+      ],
+      "pedidos": [
+        "Representar una imagen con SIREN y compararla con una red ReLU común.",
+        "Reconstruir una imagen a partir de sus gradientes.",
+        "Si llegan: pegar una imagen en otra sin que se note el borde."
+      ],
+      "paper": {
+        "titulo": "Implicit Neural Representations with Periodic Activation Functions",
+        "autores": "V. Sitzmann, J. N. P. Martel, A. W. Bergman, D. B. Lindell y G. Wetzstein",
+        "publicacion": "NeurIPS 2020",
+        "url": ""
+      },
+      "recursos": [
+        {
+          "tipo": "codigo",
+          "titulo": "Código oficial de SIREN",
+          "url": "https://github.com/vsitzmann/siren",
+          "nota": "Incluye el ejemplo de edición de Poisson."
+        }
+      ],
+      "ficha": {
+        "tema": "MLP",
+        "dificultad": "MEDIA",
+        "nucleo": "SIREN con la inicialización del paper ajustando una imagen. Comparar con ReLU y con ReLU más codificación posicional, y reconstruir la imagen a partir de su gradiente, como en el paper.",
+        "librerias": "PyTorch.",
+        "datos": "Fotos propias y un audio propio corto.",
+        "extra": "Mostrar qué pasa sin la inicialización especial y explicar por qué."
+      }
+    },
+    {
+      "id": "style-transfer",
+      "visible": true,
+      "banner": {
+        "tipo": "gatys"
+      },
+      "cliente": {
+        "nombre": "Programación",
+        "email": "programacion@lausina.erv",
+        "alias": "La Usina del Píxel",
+        "firma": "Programación · Centro Cultural La Usina del Píxel"
+      },
+      "fecha": "Miércoles, 24 de noviembre de 2004 13:33",
+      "asunto": "Instalación: tu foto pintada por un clásico",
+      "cuerpo": [
+        "Para la noche de los museos queremos una instalación: el visitante se saca una foto y en la pantalla grande aparece <b>pintada al estilo de un cuadro clásico</b>.",
+        "Sabemos que hay apps que lo hacen, pero queremos entender cómo funciona y contarlo en la muestra."
+      ],
+      "pedidos": [
+        "Pasar el estilo de una pintura de dominio público a una foto.",
+        "Mostrar qué cambia al darle más peso al estilo o al contenido.",
+        "Explicarle al público qué es \"el estilo\" para la red."
+      ],
+      "paper": {
+        "titulo": "Image Style Transfer Using Convolutional Neural Networks",
+        "autores": "L. A. Gatys, A. S. Ecker y M. Bethge",
+        "publicacion": "IEEE CVPR, 2016",
+        "url": ""
+      },
+      "recursos": [
+        {
+          "tipo": "codigo",
+          "titulo": "Tutorial de style transfer en PyTorch",
+          "url": "https://pytorch.org/tutorials/advanced/neural_style_tutorial.html",
+          "nota": "Sirve de guía; las pérdidas y las matrices de Gram las escriben ustedes."
+        }
+      ],
+      "ficha": {
+        "tema": "CNN (el único de la lista que la usa como núcleo)",
+        "dificultad": "MEDIA",
+        "nucleo": "Pérdida de contenido, matrices de Gram y pérdida de estilo implementadas por el grupo, optimizando los píxeles de la imagen. Reproducir la figura que varía el peso entre contenido y estilo.",
+        "librerias": "VGG-19 preentrenada de torchvision y el optimizador.",
+        "datos": "Fotos propias y pinturas de dominio público.",
+        "extra": "Analizar qué capas aportan qué parte del estilo, o una versión rápida en baja resolución con webcam."
+      }
+    }
+  ]
+}

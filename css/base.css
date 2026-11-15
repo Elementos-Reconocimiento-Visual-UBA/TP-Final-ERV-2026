@@ -1,0 +1,182 @@
+/* 
+   base.css — Estructura general del sitio
+   ---------------------------------------------------------------------
+   1. Variables (colores y tipografías)
+   2. Reset y cuerpo
+   3. "Cromo" de ventana: barra de título, menú, barra de dirección
+   4. Banner superior y marquesina
+   5. Layout: columna lateral + bandeja
+   6. Columna lateral: logo, carpetas, contador
+   7. Publicidades (GIFs de data/ads.json)
+   8. Bandeja: botones, intro, grilla
+   9. Pie y mensaje de error
+   10. Movimiento reducido
+*/
+
+/* 1. Variables ------------------------------------------------------- */
+:root {
+  --luna: #0a5fe0;        /* azul de las barras de ventana */
+  --chrome: #ece9d8;      /* gris beige de los paneles del sistema */
+  --ink: #14141a;         /* texto principal */
+  --hot: #ff1fae;         /* rosa chillón de acento */
+  --sun: #ffe14d;         /* amarillo de acento */
+  --sky: #d6e6ff;         /* celeste de selección */
+
+  --display: 'Bungee', Impact, 'Arial Black', sans-serif;  /* títulos de banners */
+  --pixel: 'Silkscreen', 'Courier New', monospace;          /* letras chiquitas pixeladas */
+  --body: 'Comic Neue', 'Comic Sans MS', 'Trebuchet MS', sans-serif; /* texto de los mails */
+  --ui: Tahoma, Verdana, 'DejaVu Sans', sans-serif;          /* interfaz */
+  --mono: 'VT323', 'Courier New', monospace;                 /* texto de terminal */
+  color-scheme: light;
+}
+
+/* 2. Reset y cuerpo -------------------------------------------------- */
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background-color: #cfe0ff;
+  background-image:
+    linear-gradient(45deg, #dbe8ff 25%, transparent 25%, transparent 75%, #dbe8ff 75%),
+    linear-gradient(45deg, #dbe8ff 25%, transparent 25%, transparent 75%, #dbe8ff 75%);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
+  color: var(--ink);
+  font-family: var(--ui);
+  font-size: 15px;
+}
+a { color: #0645ad; }
+button { font: inherit; cursor: pointer; }
+img { max-width: 100%; }
+:focus-visible { outline: 3px dashed var(--hot); outline-offset: 2px; }
+
+/* 3. Cromo de ventana ------------------------------------------------ */
+.titlebar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 12px;
+  background: linear-gradient(#2c7bf2, var(--luna) 55%, #0646c4);
+  color: #fff; font-weight: 700; font-size: 16px;
+  border-bottom: 3px solid #0040b0;
+}
+.titlebar .logo-e {
+  width: 26px; height: 26px; flex: none; border-radius: 50%;
+  display: grid; place-items: center;
+  background: radial-gradient(circle at 35% 35%, #fff6b0, #ffc21a 60%, #c88400);
+  color: #0646c4; font: italic 700 16px Georgia, serif;
+}
+.titlebar .ttl { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-shadow: 1px 1px 0 #00267a; }
+.wbtn {
+  width: 28px; height: 26px; flex: none; border-radius: 5px;
+  display: grid; place-items: center;
+  border: 1.5px solid #fff; background: linear-gradient(#6aa8ff, #1d5fe0);
+  color: #fff; font-weight: 700; font-size: 13px;
+}
+.wbtn.x { background: linear-gradient(#f08a6a, #c8371a); }
+.menubar {
+  display: flex; flex-wrap: wrap; gap: 4px 22px; padding: 6px 14px;
+  background: linear-gradient(#f4f2ea, #e2ddca); border-bottom: 1px solid #b9b39c; font-size: 14px;
+}
+.menubar span::first-letter { text-decoration: underline; }
+.addr {
+  display: flex; align-items: center; gap: 8px; padding: 6px 12px;
+  background: var(--chrome); border-bottom: 1px solid #b9b39c; font-size: 13px;
+}
+.addr .url { flex: 1; min-width: 0; background: #fff; border: 1px solid #7f9db9; padding: 4px 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.go { background: linear-gradient(#8fdc6a, #2f9a1f); color: #fff; border: 1px solid #1d6b12; border-radius: 4px; padding: 3px 10px; font-weight: 700; }
+
+/* 4. Banner superior y marquesina ------------------------------------ */
+.leader {
+  position: relative; overflow: hidden;
+  display: flex; align-items: center; gap: 16px;
+  margin: 14px; padding: 12px 16px;
+  border: 4px solid var(--hot); outline: 2px solid #ffff00; outline-offset: -10px;
+  background: linear-gradient(90deg, #ff5f6d, #ffc371, #fff36b, #7cffa1, #6bd6ff, #b36bff, #ff6bd6, #ff5f6d);
+  background-size: 300% 100%;
+  animation: slide 8s linear infinite;
+}
+@keyframes slide { to { background-position: 300% 0; } }
+.burst {
+  flex: none; width: 96px; height: 96px;
+  display: grid; place-items: center; text-align: center;
+  background: #ffee00;
+  clip-path: polygon(50% 0,59% 18%,79% 7%,76% 29%,98% 31%,82% 47%,98% 64%,76% 68%,80% 91%,59% 80%,50% 100%,41% 80%,20% 91%,24% 68%,2% 64%,18% 47%,2% 31%,24% 29%,21% 7%,41% 18%);
+  font-family: var(--display); color: #e00000; font-size: 14px; line-height: 1.1;
+  animation: spin 6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.leader .copy { flex: 1; min-width: 0; text-align: center; }
+.wordart {
+  font-family: var(--display); font-size: clamp(22px, 4vw, 40px); line-height: 1.05;
+  background: linear-gradient(#fffe9a, #ff9a00); -webkit-background-clip: text; background-clip: text; color: transparent;
+  -webkit-text-stroke: 2px #6a0070; filter: drop-shadow(3px 3px 0 #2a0040);
+}
+.leader p { margin: 6px 0; font-weight: 700; color: #2a0040; }
+.gbtn {
+  display: inline-block; border: none; border-radius: 14px; padding: 6px 16px;
+  font-weight: 700; color: #fff; text-shadow: 1px 1px 0 #000;
+  background: linear-gradient(#ff7a7a, #c80000);
+  box-shadow: inset 0 10px 0 rgba(255,255,255,.25), 0 2px 0 #700;
+}
+.adlabel { position: absolute; right: 8px; bottom: 4px; font-size: 10px; color: #333; }
+.marquee {
+  overflow: hidden; white-space: nowrap; margin: 0 14px;
+  background: #000; color: #3cff8f; border: 2px solid #3cff8f;
+  font-family: var(--mono); font-size: 22px;
+}
+.marquee span { display: inline-block; padding-left: 100%; animation: mq 26s linear infinite; }
+@keyframes mq { to { transform: translateX(-100%); } }
+
+/* 5. Layout ---------------------------------------------------------- */
+.layout { display: grid; grid-template-columns: 270px 1fr; gap: 14px; padding: 14px; }
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  .side { order: 2; }
+}
+.panel { background: #fff; border: 2px solid #7f9db9; border-radius: 12px; overflow: hidden; }
+.phead { background: linear-gradient(#5b8cff, #1446d2); color: #fff; font-weight: 700; padding: 8px 12px; }
+
+/* 6. Columna lateral ------------------------------------------------- */
+.side { display: flex; flex-direction: column; gap: 14px; }
+.brand { padding: 14px; text-align: center; background: linear-gradient(#fff, #d4e4ff); border: 3px solid #3a6ee8; border-radius: 14px; }
+.brand .name {
+  font: italic 700 40px Georgia, serif;
+  background: linear-gradient(#7cc1ff, #0a2fb0); -webkit-background-clip: text; background-clip: text; color: transparent;
+  -webkit-text-stroke: 1px #fff; filter: drop-shadow(2px 2px 0 #00104a);
+}
+.brand small { display: block; font-family: var(--body); font-weight: 700; color: #d00070; }
+.folders { list-style: none; margin: 0; padding: 6px; }
+.folders li { display: flex; align-items: center; gap: 10px; padding: 7px 8px; border-radius: 6px; font-size: 14px; }
+.folders li.sel { background: var(--sky); font-weight: 700; }
+.fold { position: relative; flex: none; width: 22px; height: 16px; border: 1px solid #8a6a00; border-radius: 2px; }
+.fold::before { content: ""; position: absolute; left: -1px; top: -5px; width: 10px; height: 5px; border: 1px solid #8a6a00; border-bottom: none; background: inherit; }
+.counter { padding: 10px; text-align: center; font-family: var(--body); }
+.counter .digits { display: flex; justify-content: center; gap: 4px; margin-top: 6px; }
+.counter .digits b { width: 26px; padding: 4px 0; background: #000; color: #33ff33; font-family: var(--pixel); font-size: 20px; }
+
+/* 7. Publicidades ---------------------------------------------------- */
+.ads { display: flex; flex-direction: column; gap: 14px; align-items: center; }
+.ads--inferior { flex-direction: row; flex-wrap: wrap; justify-content: center; padding: 0 14px 14px; }
+.ad { position: relative; display: block; line-height: 0; border: 2px solid #111; box-shadow: 5px 5px 0 rgba(0,20,80,.3); background: #fff; }
+.ad img { display: block; image-rendering: pixelated; }
+.ad::after { content: "Publicidad"; position: absolute; right: 0; bottom: -16px; font-size: 10px; line-height: 1; color: #4060a0; }
+.ad--link:hover { transform: rotate(-1deg) scale(1.02); }
+
+/* 8. Bandeja --------------------------------------------------------- */
+.tools { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; }
+.pill { border: none; border-radius: 16px; padding: 7px 16px; color: #fff; font-weight: 700; text-shadow: 1px 1px 0 rgba(0,0,0,.6); box-shadow: inset 0 12px 0 rgba(255,255,255,.22); }
+.pill.b { background: linear-gradient(#6aa8ff, #1450d0); }
+.pill.r { background: linear-gradient(#ff8a8a, #c81e1e); }
+.pill.g { background: linear-gradient(#8fdc6a, #2f9a1f); }
+.intro { margin: 0 12px 12px; padding: 12px 14px; border-radius: 10px; background: linear-gradient(#eef4ff, #d4e3fb); border: 2px solid #9db6e0; font-family: var(--body); font-size: 17px; line-height: 1.45; }
+.intro b { color: #7a1fa2; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 12px; padding: 0 12px 14px; }
+
+/* 9. Pie y error ----------------------------------------------------- */
+footer { text-align: center; color: #4060a0; font-size: 13px; padding: 10px 14px 24px; }
+.error { margin: 14px; padding: 14px 16px; background: #fff3f3; border: 3px solid #c80000; font-family: var(--body); font-size: 17px; }
+.error code { background: #eee; padding: 1px 4px; }
+@keyframes blink { 50% { opacity: 0; } }
+
+/* 10. Movimiento reducido ------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}

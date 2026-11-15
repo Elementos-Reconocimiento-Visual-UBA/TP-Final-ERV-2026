@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PíxelMail · Pool de Papers ERV</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Comic+Neue:wght@400;700&family=Silkscreen:wght@400;700&family=VT323&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/banners.css">
+  <link rel="stylesheet" href="css/mail.css">
+</head>
+<body>
+
+  <!-- ========== Cromo de ventana (decorativo) ========== -->
+  <div class="titlebar">
+    <span class="logo-e" aria-hidden="true">e</span>
+    <span class="ttl" id="tituloVentana">PíxelMail</span>
+    <span class="wbtn" aria-hidden="true">_</span><span class="wbtn" aria-hidden="true">□</span><span class="wbtn x" aria-hidden="true">X</span>
+  </div>
+  <div class="menubar" aria-hidden="true"><span>Archivo</span><span>Edición</span><span>Ver</span><span>Favoritos</span><span>Herramientas</span><span>Ayuda</span></div>
+  <div class="addr"><span>Dirección</span><span class="url" id="urlFalsa"></span><span class="go">Ir ➜</span></div>
+
+  <!-- ========== Banner superior (textos en config.json > banner_superior) ========== -->
+  <div class="leader" role="note">
+    <div class="burst" aria-hidden="true">¡GRATIS!<br>100%</div>
+    <div class="copy">
+      <div class="wordart" id="bsTitulo"></div>
+      <p id="bsTexto"></p>
+      <button class="gbtn" id="azar" type="button"></button>
+    </div>
+    <span class="adlabel">Publicidad</span>
+  </div>
+  <div class="marquee" aria-hidden="true"><span id="marquesina"></span></div>
+
+  <!-- Mensaje si no cargan los JSON -->
+  <div class="error" id="error" role="alert" hidden></div>
+
+  <!-- ========== Columna lateral + bandeja ========== -->
+  <div class="layout">
+    <aside class="side">
+      <div class="brand"><div class="name">PíxelMail</div><small>¡Tu correo, ahora con 2 MB!</small></div>
+      <div class="panel">
+        <div class="phead">Carpetas</div>
+        <ul class="folders">
+          <li><span class="fold" style="background:#ffcc33"></span>Bandeja de entrada</li>
+          <li class="sel"><span class="fold" style="background:#66cc66"></span><span><span id="carpeta">Papers</span> (<span id="noLeidos">0</span>)</span></li>
+          <li><span class="fold" style="background:#ffcc33"></span>Enviados</li>
+          <li><span class="fold" style="background:#ffcc33"></span>Borradores</li>
+          <li><span class="fold" style="background:#ff6666"></span>Correo no deseado (999+)</li>
+        </ul>
+      </div>
+      <!-- Publicidades laterales (data/ads.json, lugar: "lateral") -->
+      <div class="ads" id="adsLateral"></div>
+      <div class="panel counter">Sos el visitante N°<div class="digits" id="contador"></div></div>
+    </aside>
+
+    <main class="panel">
+      <div class="phead" id="tituloBandeja">Papers</div>
+      <div class="tools">
+        <button class="pill b" type="button" id="abrirPrimero">Abrir primero</button>
+        <button class="pill g" type="button" id="sorprendeme">Sorprendeme</button>
+        <button class="pill r" type="button" id="resetLeidos">Marcar todo como no leído</button>
+      </div>
+      <p class="intro" id="intro"></p>
+      <!-- Carteles: los arma js/app.js con data/mails.json + js/banners.js -->
+      <div class="grid" id="grid"></div>
+    </main>
+  </div>
+
+  <div class="ads ads--inferior" id="adsInferior"></div>
+
+  <footer id="pie"></footer>
+
+  <!-- ========== Ventana del mail (se llena con el mail elegido) ========== -->
+  <div class="overlay" id="overlay" hidden>
+    <div class="win" id="win" role="dialog" aria-modal="true" aria-labelledby="mAsunto">
+      <div class="titlebar">
+        <span class="logo-e" aria-hidden="true">@</span>
+        <span class="ttl" id="mTitulo">Mensaje</span>
+        <button class="wbtn x" type="button" id="cerrarX" aria-label="Cerrar">X</button>
+      </div>
+      <div class="bar2">
+        <button class="pill b" type="button" id="anterior">&lt; Anterior</button>
+        <button class="pill b" type="button" id="siguiente">Siguiente &gt;</button>
+        <button class="pill g" type="button" id="copiarLink">Copiar link</button>
+        <button class="pill r" type="button" id="cerrar">Cerrar</button>
+      </div>
+      <div class="mhead">
+        <div class="flag">IMPORTANCIA: ALTA</div>
+        <dl>
+          <dt>De:</dt><dd id="mDe"></dd>
+          <dt>Para:</dt><dd id="mPara"></dd>
+          <dt>Fecha:</dt><dd id="mFecha"></dd>
+          <dt>Paper:</dt><dd id="mTema"></dd>
+        </dl>
+        <div class="subject" id="mAsunto"></div>
+      </div>
+      <div class="mbody" id="mCuerpo"></div>
+      <fieldset class="ficha">
+        <legend>FICHA TÉCNICA DEL PAPER</legend>
+        <dl id="mFicha"></dl>
+      </fieldset>
+      <div class="scanned" id="mPie"></div>
+    </div>
+  </div>
+
+  <!-- ========== Aviso de chat ========== -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <div class="tb"><span>PíxelMessenger</span><span aria-hidden="true">x</span></div>
+    <div class="tbody">
+      <span class="buddy" aria-hidden="true"></span>
+      <div><b id="chatQuien"></b> dice:<br><span class="z" id="chatMsg"></span><br><small>Tenés 1 mensaje nuevo</small></div>
+    </div>
+  </div>
+
+  <script src="js/banners.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

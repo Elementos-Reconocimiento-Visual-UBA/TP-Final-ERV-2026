@@ -1,0 +1,66 @@
+{
+  "_ayuda": [
+    "config.json = textos generales del sitio. Las claves que empiezan con '_' son comentarios: el sitio las ignora.",
+    "Los textos que dicen 'html' aceptan etiquetas simples como <b>, <i> o <a href='...'>.",
+    "Para cambiar un texto, editalo acá y recargá la página. No hace falta tocar el código."
+  ],
+  "sitio": {
+    "titulo_pestana": "PíxelMail · Pool de Papers ERV",
+    "titulo_ventana": "PíxelMail · Bandeja de entrada · Pool de Papers ERV 2026",
+    "url_falsa": "http://www.pixelmail.erv/cgi-bin/inbox.cgi?carpeta=PAPERS&tp=ERV2026",
+    "carpeta": "Papers",
+    "marquesina": "*** TP FINAL ERV 2026 *** 10 GRUPOS · 1 GRUPO = 1 PAPER *** TOCÁ UN BANNER Y LEÉ EL MAIL DE TU CLIENTE *** ENTREGAN: EXPLICACIÓN + INFORME + CÓDIGO *** PRESENTACIÓN DE 15 MINUTOS ***",
+    "intro_html": "Cada banner es un <b>cliente con un problema real</b>. Tocalo y abrí su mail: ahí está el caso, el <b>paper</b> que lo resuelve, los <b>recursos</b> (datasets, código) y la <b>ficha</b> con lo que hay que replicar. Entregan <b>explicación + informe + código</b>, y presentan en 15 minutos.",
+    "pie": "Sitio optimizado para 800x600 · © 2004 PíxelMail · Visión por Computadora, ERV 2026 · Todos los clientes son ficticios",
+    "contador_visitas": "0001337"
+  },
+  "banner_superior": {
+    "_ayuda": "El cartel de colores de arriba de todo. El botón abre un mail al azar.",
+    "titulo": "¡¡FELICITACIONES!!",
+    "texto": "Sos el visitante N° 1.000.000 · Ganaste un PAPER para tu grupo",
+    "boton": ">> HACÉ CLIC AQUÍ <<"
+  },
+  "mail": {
+    "_ayuda": "Partes que se repiten en todos los mails.",
+    "para": "Tu grupo <grupo_XX@lab.erv>",
+    "saludo": "¡¡Hola, grupo!!",
+    "despedida": "¡¡Mil gracias!! Abrazo grande =)",
+    "titulo_pedidos": "Necesitamos que averigüen:",
+    "titulo_paper": "Nos recomendaron este paper:",
+    "titulo_recursos": "Además les mandamos esto:",
+    "titulo_entregables": "Lo que les pedimos:",
+    "entregables_html": [
+      "<b>Explicación del paper</b> para nuestro equipo (no somos técnicos).",
+      "<b>Informe</b> con los resultados (plantilla IEEE, máximo 4 páginas).",
+      "<b>Réplica del código</b>, para usarlo nosotros después."
+    ],
+    "pie": "--- Mensaje escaneado por PíxelGuard Antivirus: 0 virus, 1 problema para resolver ---"
+  },
+  "messenger": {
+    "_ayuda": [
+      "El aviso tipo chat que aparece al abrir un mail. Tiempos en milisegundos. activo=false lo apaga.",
+      "Cada vez que se abre un mail sale un mensaje al azar de la lista 'mensajes' (nunca el mismo dos veces seguidas).",
+      "Si un mail de mails.json tiene el campo 'chat', se usa ese texto en lugar de uno al azar.",
+      "Para agregar mensajes, sumalos a la lista (entre comillas y separados por coma)."
+    ],
+    "activo": true,
+    "demora_ms": 1400,
+    "duracion_ms": 4500,
+    "mensajes": [
+      "mi loss bajó a 0.000 en train... ¿eso es bueno? :-S",
+      "me dio accuracy 100%... en el set de entrenamiento ¬¬",
+      "¿la imagen está en BGR o en RGB? OpenCV me odia >:(",
+      "encontré 4.000 esquinas con Harris... en una pared blanca",
+      "¿el umbral de Otsu se elige solo? ¡qué lindo! =)",
+      "¿el kernel tiene que ser impar? pregunto por un amigo",
+      "overfitteé tanto que ahora solo reconoce mi cara o_O",
+      "pasaron 3 días y el MLP sigue en la época 1 :'(",
+      "¿normalizaron las imágenes? porque yo no :(",
+      "¿cuántas épocas son \"unas pocas\"?",
+      "mi Hough encontró 300 líneas... en una foto de un gato",
+      "el SVM me separó todo perfecto. Sospechoso ¬¬",
+      "¿alguien entendió el apéndice del paper? yo tampoco",
+      "¿la matriz de confusión me tiene que confundir a mí? :-S"
+    ]
+  }
+}

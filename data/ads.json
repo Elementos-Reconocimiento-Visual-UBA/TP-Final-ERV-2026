@@ -1,0 +1,59 @@
+{
+  "_ayuda": [
+    "ads.json = publicidades (GIFs o PNGs). Las claves que empiezan con '_' son comentarios.",
+    "Para agregar una: copiá el GIF a assets/ads/ y sumá un objeto a la lista 'publicidades'.",
+    "lugar: 'lateral' (columna izquierda, debajo de las carpetas) o 'inferior' (fila debajo de los banners).",
+    "link (opcional): una URL externa, o '#id-de-un-mail' para que abra ese mail. Vacío = no hace nada.",
+    "visible: false la oculta sin borrarla."
+  ],
+  "publicidades": [
+    {
+      "id": "otsu",
+      "imagen": "assets/ads/otsu.gif",
+      "alt": "Histogramas bimodales en tu zona. Otsu te los presenta desde 1979.",
+      "lugar": "lateral",
+      "link": "https://en.wikipedia.org/wiki/Otsu%27s_method",
+      "visible": true
+    },
+    {
+      "id": "mas-ram",
+      "imagen": "assets/ads/mas-ram.gif",
+      "alt": "¿Tu CNN se queda sin memoria? Descargá más RAM gratis.",
+      "lugar": "lateral",
+      "link": "",
+      "visible": true
+    },
+    {
+      "id": "pool",
+      "imagen": "assets/ads/pool-de-papers.gif",
+      "alt": "Grilla animada con los 13 papers del pool.",
+      "lugar": "lateral",
+      "link": "",
+      "visible": true
+    },
+    {
+      "id": "sobel",
+      "imagen": "assets/ads/sobel.gif",
+      "alt": "¡Sobel! 2x1 en gradientes.",
+      "lugar": "inferior",
+      "link": "https://en.wikipedia.org/wiki/Sobel_operator",
+      "visible": true
+    },
+    {
+      "id": "gauss",
+      "imagen": "assets/ads/gauss.gif",
+      "alt": "Kernel gaussiano: ¡suavizá tu vida!",
+      "lugar": "inferior",
+      "link": "https://en.wikipedia.org/wiki/Gaussian_blur",
+      "visible": true
+    },
+    {
+      "id": "learning-rate",
+      "imagen": "assets/ads/learning-rate.gif",
+      "alt": "¿Tu MLP no converge? Bajá el learning rate.",
+      "lugar": "inferior",
+      "link": "",
+      "visible": true
+    }
+  ]
+}
