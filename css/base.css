@@ -152,6 +152,22 @@ img { max-width: 100%; }
 .counter .digits { display: flex; justify-content: center; gap: 4px; margin-top: 6px; }
 .counter .digits b { width: 26px; padding: 4px 0; background: #000; color: #33ff33; font-family: var(--pixel); font-size: 20px; }
 
+/* Cuenta regresiva a la entrega */
+.cuenta { text-align: center; font-family: var(--body); }
+.cuenta-fecha { padding: 8px 10px 0; font-weight: 700; color: #20407a; }
+.cuenta-digitos { display: flex; justify-content: center; gap: 6px; padding: 8px 8px 4px; }
+.cuenta-digitos .u { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.cuenta-digitos b { min-width: 46px; padding: 6px 4px; background: #000; color: #33ff33; border: 2px solid #555; border-radius: 4px; font-family: var(--pixel); font-size: 22px; }
+.cuenta-digitos small { font-family: var(--pixel); font-size: 10px; color: #4060a0; }
+.cuenta-msg { min-height: 8px; padding: 2px 8px 10px; font-weight: 700; color: #d00000; }
+.cuenta.urgente .phead { background: linear-gradient(#ff7a7a, #c80000); }
+.cuenta.urgente .cuenta-digitos b { color: #ff4040; }
+.cuenta.urgente .cuenta-msg { animation: blink 1s steps(2) infinite; }
+.cuenta.vencida .cuenta-digitos b { color: #777; }
+.falta { align-self: center; margin-left: auto; padding: 4px 10px; background: #fff36b; border: 2px solid #c89b00; border-radius: 4px; font-weight: 700; font-size: 14px; color: #6a3a00; }
+.falta:empty { display: none; }
+@media (max-width: 860px) { .falta { margin-left: 0; } }
+
 /* 7. Publicidades ---------------------------------------------------- */
 .ads { display: flex; flex-direction: column; gap: 14px; align-items: center; }
 .ads--inferior { flex-direction: row; flex-wrap: wrap; justify-content: center; padding: 0 14px 14px; }

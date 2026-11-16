@@ -25,7 +25,7 @@
 .band { position: relative; z-index: 2; margin: 4px -14px -14px; padding: 8px 10px; background: #111; }
 .s-abajo { position: absolute; left: 0; right: 0; bottom: 10px; text-align: center; }
 
-/* ---- generico: colores desde el JSON (variables --bg, --fg, --ac, --bd) ---- */
+/* ---- generico: colores desde el JSON ---- */
 .b-generico { background: var(--bg, #0f1f4d); color: var(--fg, #fff); border: 4px solid var(--bd, #3a6ee8); }
 .b-generico .h { font-size: 26px; text-shadow: 3px 3px 0 rgba(0,0,0,.45); }
 .b-generico .h.ac { color: var(--ac, #ffe14d); font-size: 22px; }
@@ -37,13 +37,6 @@
 .b-hough .h { font-size: 28px; text-shadow: 3px 3px 0 #c99a00; }
 .b-hough .band { color: var(--sun); }
 .b-hough .band b { color: #fff; }
-
-/* ---- iris ---- */
-.b-iris { flex-direction: row; align-items: center; text-align: left; background: #0b0b0b; border: 4px solid #3cff8f; }
-.b-iris svg { flex: none; width: 44%; }
-.b-iris .h { font-size: 24px; }
-.b-iris .h em { font-style: normal; color: #3cff8f; }
-.b-iris .s { color: #bbb; }
 
 /* ---- selective ---- */
 .b-selective { background: #0f1f4d; border: 4px solid #3a6ee8; }
@@ -150,3 +143,46 @@
 .b-gatys .h { font-size: 28px; text-shadow: 3px 3px 0 #0a1440; }
 .b-gatys .h.y { color: var(--sun); font-size: 24px; }
 .b-gatys .band { background: #0a1440; color: var(--sun); }
+
+/* ---- harris ---- */
+.b-harris { flex-direction: row; align-items: center; gap: 10px; text-align: left; background: #0d3b2e; border: 4px solid #3fa34d; }
+.b-harris svg { flex: none; width: 46%; }
+.b-harris .zoom { transform-origin: 60px 40px; animation: zoomdron 5s ease-in-out infinite; }
+@keyframes zoomdron { 0%, 100% { transform: scale(.75); } 50% { transform: scale(1.12) rotate(-8deg); } }
+.b-harris .h { font-size: 21px; text-shadow: 2px 2px 0 #021a12; }
+.b-harris .h.y { color: #ffd23f; font-size: 15px; }
+.b-harris .zm { margin-top: 6px; font-family: var(--pixel); font-size: 11px; color: #9fe0b0; }
+.b-harris .zm span { color: #fff; }
+.b-harris .s { color: #9fe0b0; }
+
+/* ---- cancha ---- */
+.b-cancha { gap: 4px; background: #7a2e12; border: 4px solid #f4f1e8; }
+.b-cancha svg { display: block; width: 74%; margin: 0 auto; }
+.b-cancha .lineas line { stroke: #fff; stroke-dasharray: 120; animation: trazo 4s linear infinite; }
+@keyframes trazo {
+  0% { stroke-dashoffset: 120; stroke: #fff; }
+  35% { stroke-dashoffset: 0; stroke: #fff; }
+  50%, 92% { stroke-dashoffset: 0; stroke: #3cff8f; }
+  100% { stroke-dashoffset: 0; stroke: #fff; }
+}
+.b-cancha .h { font-size: 17px; text-shadow: 2px 2px 0 #3a1206; }
+.b-cancha .st { position: relative; z-index: 2; height: 15px; font-family: var(--pixel); font-weight: 700; font-size: 12px; color: #ffe14d; }
+.b-cancha .st span { position: absolute; left: 0; right: 0; animation: alt 2.4s steps(1) infinite; }
+.b-cancha .st span + span { animation-delay: -1.2s; color: #3cff8f; }
+.b-cancha .band { color: #ffe14d; }
+
+/* ---- letra ---- */
+.b-letra { gap: 4px; background: #f4ecd8; color: #1f2a44; border: 4px solid #8b6f47;
+  background-image: repeating-linear-gradient(transparent 0 21px, #c9d6ea 21px 22px); }
+.b-letra .tinta { position: relative; z-index: 1; display: block; width: 86%; margin: 0 auto; }
+.b-letra .tinta path { stroke-dasharray: 520; animation: escribe 5s ease-in-out infinite; }
+@keyframes escribe { 0% { stroke-dashoffset: 520; } 45%, 90% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: 520; } }
+.b-letra .lupa { position: absolute; z-index: 2; top: 16px; left: 8%; width: 44px; height: 44px; border: 4px solid #8b6f47; border-radius: 50%;
+  background: rgba(255,255,255,.35); box-shadow: inset 0 0 0 2px #fff; animation: lupa 5s ease-in-out infinite; }
+.b-letra .lupa::after { content: ""; position: absolute; right: -14px; bottom: -12px; width: 18px; height: 6px; background: #5a4428; transform: rotate(45deg); }
+@keyframes lupa { 0%, 100% { left: 8%; } 50% { left: 70%; } }
+.b-letra .h { font: italic 700 26px Georgia, 'DejaVu Serif', serif; }
+.b-letra .h.r { color: #b22222; font-size: 21px; }
+.b-letra .lbp { position: relative; z-index: 2; font-family: var(--mono); font-size: 20px; color: #1f2a44; }
+.b-letra .bits { color: #b22222; letter-spacing: 2px; }
+.b-letra .s { color: #8b6f47; }

@@ -9,6 +9,7 @@
      7. Recuerda qué mails se leyeron (solo en este navegador)
      8. Links directos: index.html#copy-move abre ese mail
      9. Anima los contadores de los carteles
+    10. Cuenta regresiva a la entrega del TP
 */
 
 (function () {
@@ -26,6 +27,7 @@
   const estado = {
     config: null,
     mails: [],     // solo los mails con visible !== false
+    comun: {},     // mails.json > comun (títulos, entrega, despedida, firma, regla de librerías)
     actual: -1,    // índice del mail abierto (-1 = ninguno)
     leidos: new Set(),
   };
@@ -45,8 +47,10 @@
       ]);
       estado.config = config;
       estado.mails = (mailsData.mails || []).filter((m) => m.visible !== false);
+      estado.comun = mailsData.comun || {};
       cargarLeidos();
       pintarTextos(config);
+      iniciarCuenta(config);
       pintarGrilla();
       pintarPublicidades(adsData.publicidades || []);
       conectarBotones();
@@ -154,6 +158,36 @@
       </li>`;
   }
 
+  /** Etiquetas de cada tipo de dificultad (ficha.dificultades[].tipo). */
+  const DIFICULTADES = {
+    paper: 'PAPER DIFÍCIL',
+    codigo: 'MUCHO CÓDIGO',
+    tiempo: 'TARDA EN CORRER',
+    gpu: 'NECESITA GPU',
+    'dataset-conseguir': 'DATASET DIFÍCIL DE CONSEGUIR',
+    'dataset-armar': 'HAY QUE ARMAR EL DATASET',
+  };
+
+  /** HTML de la ficha técnica. Los campos viejos (nucleo, extra) se muestran solo si están. */
+  function htmlFicha(f, com) {
+    const nivel = String(f.dificultad || '').trim();
+    const claves = Array.isArray(f.palabras_clave) ? f.palabras_clave : [];
+    const difs = Array.isArray(f.dificultades) ? f.dificultades : [];
+    const item = (d) => {
+      const tipo = String(d.tipo || '').toLowerCase();
+      return `<li><span class="tag tag--${esc(tipo)}">${esc(DIFICULTADES[tipo] || tipo.toUpperCase())}</span><span>${esc(d.nota || '')}</span></li>`;
+    };
+    return `<dt>Tema de la materia</dt><dd>${esc(f.tema)}</dd>` +
+      (claves.length ? `<dt>Palabras clave</dt><dd><ul class="chips">${claves.map((c) => `<li>${esc(c)}</li>`).join('')}</ul></dd>` : '') +
+      (f.nucleo ? `<dt>Núcleo mínimo</dt><dd>${esc(f.nucleo)}</dd>` : '') +
+      `<dt>Pueden usar librería para</dt><dd>${f.librerias || ''}` +                 // admite <code>
+      (com.reglas_librerias ? `<span class="regla">${esc(com.reglas_librerias)}</span>` : '') + `</dd>` +
+      `<dt>Datos sugeridos</dt><dd>${esc(f.datos)}</dd>` +
+      (f.extra ? `<dt>Ejercicio extra (+1)</dt><dd>${esc(f.extra)}</dd>` : '') +
+      `<dt>Dificultad</dt><dd><span class="dif dif--${esc(nivel.toLowerCase())}">${esc(nivel)}</span>` +
+      (difs.length ? `<ul class="difs">${difs.map(item).join('')}</ul>` : '') + `</dd>`;
+  }
+
   function abrirMail(i, desdeHash) {
     const n = estado.mails.length;
     estado.actual = ((i % n) + n) % n;
@@ -169,27 +203,26 @@
     $('#mTema').textContent = `#${String(estado.actual + 1).padStart(2, '0')} · ${m.ficha?.tema || ''}`;
     $('#mAsunto').textContent = m.asunto || '';
 
+    // Lo común a todos los mails sale de mails.json > comun; si falta, de config.json > mail
+    const com = estado.comun;
+    const tit = com.titulos || {};
+    const entrega = com.entrega || cm.entregables_html || [];
+    const despedida = m.despedida || com.despedida || cm.despedida || '';
+    const ola = esc(com.separador_firma || '~*~*~*~*~*~*~*~*~*~');
     const recursos = (m.recursos || []);
     $('#mCuerpo').innerHTML =
       `<p>${esc(cm.saludo || '')}</p>` +
       (m.cuerpo || []).map((p) => `<p>${p}</p>`).join('') +                        // admite HTML simple
-      `<h4>${esc(cm.titulo_pedidos || '')}</h4><ol class="pedidos">${(m.pedidos || []).map((x) => `<li><span>${x}</span></li>`).join('')}</ol>` +
-      `<h4>${esc(cm.titulo_paper || '')}</h4>
+      `<h4>${esc(tit.averiguar || cm.titulo_pedidos || '')}</h4><ol class="pedidos">${(m.pedidos || []).map((x) => `<li><span>${x}</span></li>`).join('')}</ol>` +
+      `<h4>${esc(tit.paper || cm.titulo_paper || '')}</h4>
        <div class="paper"><div class="t"><a href="${esc(linkPaper(m.paper))}" target="_blank" rel="noopener">${esc(m.paper.titulo)}</a></div>
        <div class="a">${esc(m.paper.autores)}. <i>${esc(m.paper.publicacion)}</i>.</div></div>` +
-      (recursos.length ? `<h4>${esc(cm.titulo_recursos || '')}</h4><ul class="recursos">${recursos.map(htmlRecurso).join('')}</ul>` : '') +
-      `<h4>${esc(cm.titulo_entregables || '')}</h4><ul class="stars">${(cm.entregables_html || []).map((x) => `<li><span>${x}</span></li>`).join('')}</ul>` +
-      `<p>${esc(cm.despedida || '')}</p>
-       <div class="sig"><div class="wave">~*~*~*~*~*~*~*~*~*~</div>${esc(m.cliente?.firma || '')}<div class="wave">~*~*~*~*~*~*~*~*~*~</div></div>`;
+      (recursos.length ? `<h4>${esc(tit.recursos || cm.titulo_recursos || '')}</h4><ul class="recursos">${recursos.map(htmlRecurso).join('')}</ul>` : '') +
+      `<h4>${esc(tit.entrega || cm.titulo_entregables || '')}</h4><ul class="stars">${entrega.map((x) => `<li><span>${x}</span></li>`).join('')}</ul>` +
+      `<p>${esc(despedida)}</p>
+       <div class="sig"><div class="wave">${ola}</div>${esc(m.cliente?.firma || '')}<div class="wave">${ola}</div></div>`;
 
-    const f = m.ficha || {};
-    $('#mFicha').innerHTML =
-      `<dt>Tema de la materia</dt><dd>${esc(f.tema)}</dd>` +
-      `<dt>Núcleo mínimo</dt><dd>${esc(f.nucleo)}</dd>` +
-      `<dt>Pueden usar librería para</dt><dd>${f.librerias || ''}</dd>` +       // admite <code>
-      `<dt>Datos sugeridos</dt><dd>${esc(f.datos)}</dd>` +
-      `<dt>Ejercicio extra (+1)</dt><dd>${esc(f.extra)}</dd>` +
-      `<dt>Dificultad</dt><dd class="dif">${esc(f.dificultad)}</dd>`;
+    $('#mFicha').innerHTML = htmlFicha(m.ficha || {}, com);
     $('#mPie').textContent = cm.pie || '';
 
     ov.hidden = false;
@@ -306,6 +339,55 @@
     document.querySelectorAll('.epoch').forEach((e) => { e.textContent = pad(Math.min(2000, (tick * 25) % 2600)); });
     const n = tick % (FRASE.length + 12);
     document.querySelectorAll('.typed').forEach((e) => { e.textContent = FRASE.slice(0, Math.min(n, FRASE.length)); });
+    // harris: zoom que va de x0.5 a x4.0 y vuelve
+    const z = 0.5 + 3.5 * (0.5 - 0.5 * Math.cos(tick / 12));
+    document.querySelectorAll('.escala').forEach((e) => { e.textContent = 'x' + z.toFixed(1); });
+    // letra: código LBP de 8 bits que cambia cada 0,3 s
+    if (tick % 3 === 0) {
+      const bits = (((tick / 3) * 2654435761) >>> 24).toString(2).padStart(8, '0');
+      document.querySelectorAll('.bits').forEach((e) => { e.textContent = bits; });
+    }
+  }
+
+  /* ---- 10. Cuenta regresiva a la entrega ------------------------------
+     Se configura en config.json > cuenta_regresiva:
+       { "fecha": "2026-12-14T23:59:00-03:00", "texto": "Lunes 14 de diciembre, 23:59",
+         "mensaje_fin": "¡Se terminó el plazo!" }
+     Si no está, usa los valores de abajo. */
+  const ENTREGA_DEFECTO = {
+    fecha: '2026-12-14T23:59:00-03:00',
+    texto: 'Lunes 14 de diciembre, 23:59',
+    mensaje_fin: '¡Se terminó el plazo!',
+  };
+
+  function iniciarCuenta(c) {
+    const e = Object.assign({}, ENTREGA_DEFECTO, c.cuenta_regresiva || {});
+    const fin = new Date(e.fecha).getTime();
+    if (e.activo === false || isNaN(fin)) { $('#cuenta').hidden = true; return; }
+    $('#cuentaFecha').textContent = e.texto;
+    const dos = (n) => String(n).padStart(2, '0');
+    const caja = (n, u) => `<span class="u"><b>${dos(n)}</b><small>${u}</small></span>`;
+    let timer;
+    const paso = () => {
+      const ms = fin - Date.now();
+      const panel = $('#cuenta');
+      if (ms <= 0) {
+        clearInterval(timer);
+        panel.classList.add('vencida');
+        $('#cuentaDigitos').innerHTML = caja(0, 'DÍAS') + caja(0, 'HS') + caja(0, 'MIN') + caja(0, 'SEG');
+        $('#cuentaMsg').textContent = e.mensaje_fin;
+        $('#faltaChip').textContent = '⏰ ' + e.mensaje_fin;
+        return;
+      }
+      const s = Math.floor(ms / 1000);
+      const d = Math.floor(s / 86400), h = Math.floor(s / 3600) % 24, m = Math.floor(s / 60) % 60;
+      $('#cuentaDigitos').innerHTML = caja(d, 'DÍAS') + caja(h, 'HS') + caja(m, 'MIN') + caja(s % 60, 'SEG');
+      panel.classList.toggle('urgente', d < 3);
+      $('#cuentaMsg').textContent = d < 1 ? '¡¡ES HOY!! ¡¡A SUBIR TODO!!' : d < 3 ? '¡¡ÚLTIMOS DÍAS!!' : d < 7 ? '¡Última semana!' : '';
+      $('#faltaChip').textContent = d >= 1 ? `⏰ Faltan ${d} ${d === 1 ? 'día' : 'días'} para la entrega` : '⏰ ¡La entrega es hoy!';
+    };
+    paso();
+    timer = setInterval(paso, 1000);
   }
 
   iniciar();

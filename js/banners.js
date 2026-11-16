@@ -37,19 +37,6 @@
       `<div class="h">CADA PÍXEL<br>UN VOTO</div>
        <div class="band s">ACUMULADOR: <b class="votes">0000</b><br>DEEP HOUGH · ZHAO 2020</div>`,
 
-    iris: () =>
-      `<svg viewBox="0 0 120 90" aria-hidden="true">
-         <ellipse cx="60" cy="45" rx="56" ry="32" fill="#f2f2f2"/>
-         <circle cx="60" cy="45" r="26" fill="#3b7a57"/><circle cx="60" cy="45" r="11" fill="#0b0b0b"/>
-         <rect x="65" y="32" width="5" height="5" fill="#fff"/>
-         <circle cx="60" cy="45" r="26" fill="none" stroke-width="2.5">
-           <animate attributeName="r" values="8;40;18;34;26;26" dur="3.5s" repeatCount="indefinite"/>
-           <animate attributeName="stroke" values="#ff4d4d;#ff4d4d;#ff4d4d;#ff4d4d;#3cff8f;#3cff8f" dur="3.5s" repeatCount="indefinite"/>
-         </circle>
-       </svg>
-       <div class="h">MIRAME<br>A LOS<br><em>OJOS</em></div>
-       <div class="s s-abajo">HOUGH DE CÍRCULOS · WILDES 1997</div>`,
-
     selective: () => {
       const colores = ['#7cffa1', '#ff9f1c', '#5ef0ff', '#ff5ec4', '#fff36b', '#b36bff'];
       const cajas = [[6, 10, 40, 30], [50, 20, 30, 50], [20, 48, 60, 30], [64, 8, 28, 40], [4, 30, 30, 46], [40, 55, 52, 28], [70, 50, 24, 34], [12, 6, 70, 60]];
@@ -156,6 +143,59 @@
       `<span class="swirl" aria-hidden="true"></span>
        <div class="h">TU FOTO</div><div class="h y">× VAN GOGH</div>
        <div class="band s">LA ÚNICA CNN PERMITIDA<br><span style="color:#fff">STYLE TRANSFER · GATYS 2016</span></div>`,
+
+    harris: () => {
+      
+      const esq = [[22, 18], [70, 12], [96, 40], [62, 50], [40, 62]];
+      const marcas = esq.map(([x, y], i) =>
+        `<ellipse cx="${x}" cy="${y}" rx="4" ry="4" fill="none" stroke="#ffd23f" stroke-width="2">
+           <animate attributeName="rx" values="3;11;6;3" dur="3s" begin="${-i * 0.6}s" repeatCount="indefinite"/>
+           <animate attributeName="ry" values="3;6;11;3" dur="3s" begin="${-i * 0.6}s" repeatCount="indefinite"/>
+         </ellipse><circle cx="${x}" cy="${y}" r="1.8" fill="#fff"/>`).join('');
+      return `<svg viewBox="0 0 120 80" aria-hidden="true">
+          <g class="zoom">
+            <polygon points="22,18 70,12 96,40 62,50 40,62" fill="#2f6b4a" stroke="#9fe0b0" stroke-width="2"/>
+            <line x1="46" y1="15" x2="79" y2="45" stroke="#9fe0b0" stroke-width="1.5"/>
+            ${marcas}
+          </g>
+        </svg>
+        <div><div class="h">ESQUINAS</div><div class="h y">A CUALQUIER ESCALA</div>
+        <div class="zm">ALTURA DEL DRON <span class="escala">x1.0</span></div></div>
+        <div class="s s-abajo">HARRIS-AFFINE · MIKOLAJCZYK 2004</div>`;
+    },
+
+    cancha: () => {
+      
+      const L = [
+        [12, 68, 108, 68], [32, 6, 88, 6], [12, 68, 32, 6], [108, 68, 88, 6],   
+        [24, 68, 39, 6], [96, 68, 81, 6],                                      
+        [28.1, 51.3, 92, 51.3], [35, 22.7, 85, 22.7], [60, 51.3, 60, 22.7],   
+      ];
+      const lineas = L.map(([x1, y1, x2, y2], i) =>
+        `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" style="animation-delay:${i * 0.15}s"/>`).join('');
+      return `<svg viewBox="0 0 120 72" aria-hidden="true">
+          <polygon points="12,68 108,68 88,6 32,6" fill="#c4643a"/>
+          <g class="lineas" fill="none" stroke-width="1.6" stroke-linecap="round">${lineas}</g>
+          <line x1="22" y1="37" x2="98" y2="37" stroke="#222" stroke-width="2.5" stroke-dasharray="2 1"/>
+          <circle r="2.6" fill="#e6ff3a" stroke="#556b00" stroke-width=".6">
+            <animate attributeName="cx" values="30;52;74;74" keyTimes="0;.5;.8;1" dur="2.4s" repeatCount="indefinite"/>
+            <animate attributeName="cy" values="60;20;14;14" keyTimes="0;.5;.8;1" dur="2.4s" repeatCount="indefinite"/>
+          </circle>
+        </svg>
+        <div class="h">LA CANCHA SE ENCUENTRA SOLA</div>
+        <div class="st"><span>¿PICÓ AFUERA?</span><span>ADENTRO ✓</span></div>
+        <div class="band s">HOUGH · FARIN ET AL. 2004</div>`;
+    },
+
+    letra: () =>
+      `<svg class="tinta" viewBox="0 0 200 50" aria-hidden="true">
+         <path d="M6 34 c8 -26 18 -26 16 2 s10 -22 18 -4 s8 -18 16 0 c6 -26 14 -26 12 3 s12 -20 20 -2 s10 -16 18 0 c8 -24 16 -24 14 4 s14 -20 22 -4 s10 -14 20 2"
+               fill="none" stroke="#1f2a44" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+       </svg>
+       <span class="lupa" aria-hidden="true"></span>
+       <div class="h">LA LETRA</div><div class="h r">NO MIENTE</div>
+       <div class="lbp">LBP: <span class="bits">00000000</span></div>
+       <div class="s">WRITER ID · BERTOLINI ET AL. 2013</div>`,
   };
 
   window.BANNERS = BANNERS;

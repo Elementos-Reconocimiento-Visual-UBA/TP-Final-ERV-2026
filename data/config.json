@@ -9,7 +9,7 @@
     "titulo_ventana": "PíxelMail · Bandeja de entrada · Pool de Papers ERV 2026",
     "url_falsa": "http://www.pixelmail.erv/cgi-bin/inbox.cgi?carpeta=PAPERS&tp=ERV2026",
     "carpeta": "Papers",
-    "marquesina": "*** TP FINAL ERV 2026 *** 10 GRUPOS · 1 GRUPO = 1 PAPER *** TOCÁ UN BANNER Y LEÉ EL MAIL DE TU CLIENTE *** ENTREGAN: EXPLICACIÓN + INFORME + CÓDIGO *** PRESENTACIÓN DE 15 MINUTOS ***",
+    "marquesina": "*** TP FINAL ERV 2026 *** 8 GRUPOS · 1 GRUPO = 1 PAPER *** TOCÁ UN BANNER Y LEÉ EL MAIL DE TU CLIENTE *** ENTREGAN: EXPLICACIÓN + INFORME + CÓDIGO *** PRESENTACIÓN DE 15 MINUTOS ***",
     "intro_html": "Cada banner es un <b>cliente con un problema real</b>. Tocalo y abrí su mail: ahí está el caso, el <b>paper</b> que lo resuelve, los <b>recursos</b> (datasets, código) y la <b>ficha</b> con lo que hay que replicar. Entregan <b>explicación + informe + código</b>, y presentan en 15 minutos.",
     "pie": "Sitio optimizado para 800x600 · © 2004 PíxelMail · Visión por Computadora, ERV 2026 · Todos los clientes son ficticios",
     "contador_visitas": "0001337"
@@ -60,7 +60,8 @@
       "mi Hough encontró 300 líneas... en una foto de un gato",
       "el SVM me separó todo perfecto. Sospechoso ¬¬",
       "¿alguien entendió el apéndice del paper? yo tampoco",
-      "¿la matriz de confusión me tiene que confundir a mí? :-S"
+      "¿la matriz de confusión me tiene que confundir a mí? :-S",
+      "Hola chat"
     ]
   }
 }

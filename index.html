@@ -16,7 +16,7 @@
 </head>
 <body>
 
-  <!-- ========== Cromo de ventana (decorativo) ========== -->
+  <!-- ========== Cromo de ventana ========== -->
   <div class="titlebar">
     <span class="logo-e" aria-hidden="true">e</span>
     <span class="ttl" id="tituloVentana">PíxelMail</span>
@@ -25,7 +25,7 @@
   <div class="menubar" aria-hidden="true"><span>Archivo</span><span>Edición</span><span>Ver</span><span>Favoritos</span><span>Herramientas</span><span>Ayuda</span></div>
   <div class="addr"><span>Dirección</span><span class="url" id="urlFalsa"></span><span class="go">Ir ➜</span></div>
 
-  <!-- ========== Banner superior (textos en config.json > banner_superior) ========== -->
+  <!-- ========== Banner superior ========== -->
   <div class="leader" role="note">
     <div class="burst" aria-hidden="true">¡GRATIS!<br>100%</div>
     <div class="copy">
@@ -44,6 +44,12 @@
   <div class="layout">
     <aside class="side">
       <div class="brand"><div class="name">PíxelMail</div><small>¡Tu correo, ahora con 2 MB!</small></div>
+      <div class="panel cuenta" id="cuenta">
+        <div class="phead">⏰ Entrega del TP</div>
+        <div class="cuenta-fecha" id="cuentaFecha"></div>
+        <div class="cuenta-digitos" id="cuentaDigitos" role="timer" aria-live="off"></div>
+        <div class="cuenta-msg" id="cuentaMsg"></div>
+      </div>
       <div class="panel">
         <div class="phead">Carpetas</div>
         <ul class="folders">
@@ -54,7 +60,7 @@
           <li><span class="fold" style="background:#ff6666"></span>Correo no deseado (999+)</li>
         </ul>
       </div>
-      <!-- Publicidades laterales (data/ads.json, lugar: "lateral") -->
+      <!-- Publicidades laterales -->
       <div class="ads" id="adsLateral"></div>
       <div class="panel counter">Sos el visitante N°<div class="digits" id="contador"></div></div>
     </aside>
@@ -65,9 +71,10 @@
         <button class="pill b" type="button" id="abrirPrimero">Abrir primero</button>
         <button class="pill g" type="button" id="sorprendeme">Sorprendeme</button>
         <button class="pill r" type="button" id="resetLeidos">Marcar todo como no leído</button>
+        <span class="falta" id="faltaChip"></span>
       </div>
       <p class="intro" id="intro"></p>
-      <!-- Carteles: los arma js/app.js con data/mails.json + js/banners.js -->
+      
       <div class="grid" id="grid"></div>
     </main>
   </div>
@@ -76,7 +83,7 @@
 
   <footer id="pie"></footer>
 
-  <!-- ========== Ventana del mail (se llena con el mail elegido) ========== -->
+  <!-- ========== Ventana del mail ========== -->
   <div class="overlay" id="overlay" hidden>
     <div class="win" id="win" role="dialog" aria-modal="true" aria-labelledby="mAsunto">
       <div class="titlebar">
