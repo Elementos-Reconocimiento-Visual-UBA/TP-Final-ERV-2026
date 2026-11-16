@@ -355,8 +355,8 @@
          "mensaje_fin": "¡Se terminó el plazo!" }
      Si no está, usa los valores de abajo. */
   const ENTREGA_DEFECTO = {
-    fecha: '2026-12-14T23:59:00-03:00',
-    texto: 'Lunes 14 de diciembre, 23:59',
+    fecha: '2026-12-07T23:59:00-03:00',
+    texto: 'Lunes 7 de diciembre, 23:59',
     mensaje_fin: '¡Se terminó el plazo!',
   };
 
